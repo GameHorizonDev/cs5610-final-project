@@ -1,7 +1,11 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Example from './API/Example'
+import LoginPage from './Pages/LogInPage';
+import RegisterPage from './Pages/RegisterPage';
+import ProfilePage from './Pages/ProfilePage';
+import ProfileEditPage from './Pages/ProfileEditPage';
 
 function App() {
   return (
@@ -20,6 +24,16 @@ function App() {
           Learn React
         </a>
       </header>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/edit" element={<ProfileEditPage />} />
+        </Routes>
+      </Router>
+
       <Example />
     </div>
   );
