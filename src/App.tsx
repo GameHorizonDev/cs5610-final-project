@@ -5,6 +5,7 @@ import LoginPage from './Pages/LogInPage';
 import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import ProfileEditPage from './Pages/ProfileEditPage';
+import Sandbox from './Sandbox';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<ProfileEditPage />} />
           <Route path="/sandbox/api/example" element={<Example />} />
+          <Route path="/sandbox/*" element={<Sandbox />} />
         </Routes>
       </Router>
 
