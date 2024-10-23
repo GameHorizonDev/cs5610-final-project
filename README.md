@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Development
+
+The `main` branch is deployed to https://gamehorizon.netlify.app/.
+
+If you push to a branch, it would be available at `https://branch-name--gamehorizon.netlify.app/`. For example, the `yanling/readme` branch would be deployed to `https://yanling-readme--gamehorizon.netlify.app/`.
+
 ## Available Scripts
 
 In the project directory, you can run:
