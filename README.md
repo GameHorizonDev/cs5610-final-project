@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Development
+
+The main branch is deployed at https://gamehorizon.netlify.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
