@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The `main` branch is deployed to https://gamehorizon.netlify.app/.
 
-If you push to a branch, such as the `yanling/readme` branch, it would be available at https://yanling-readme--gamehorizon.netlify.app/.
+If you push to a branch, it would be available at `https://branch-name--gamehorizon.netlify.app/`. For example, the `yanling/readme` branch would be deployed to `https://yanling-readme--gamehorizon.netlify.app/`.
 
 ## Available Scripts
 
