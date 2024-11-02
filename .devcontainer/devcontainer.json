@@ -1,15 +1,22 @@
 {
     "image": "mcr.microsoft.com/devcontainers/universal:2",
     "waitFor": "onCreateCommand",
+    "onCreateCommand": "sudo apt update && sudo apt install mongodb -y",
     "updateContentCommand": "npm install",
-    "postCreateCommand": "",
     "postAttachCommand": {
-        "server": "npm start"
+        "server": "sudo service mongodb start; npm start",
+        "backend": "bash run-backend.sh"
     },
     "customizations": {
         "codespaces": {
             "openFiles": [
                 "src/App.jsx"
+            ]
+        },
+        "vscode": {
+            "extensions": [
+                "mongodb.mongodb-vscode",
+                "GitHub.copilot"
             ]
         }
     },
@@ -20,6 +27,7 @@
         }
     },
     "forwardPorts": [
-        3000
+        3000,
+        5000
     ]
 }
