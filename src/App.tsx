@@ -8,6 +8,8 @@ import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
+import SearchResultPage from './Pages/SearchResultPage';
+import ViewGamePage from './Pages/ViewGamePage';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/profile/edit" element={<ProfileEditPage />} />
           <Route path="/sandbox/api/example" element={<Example />} />
           <Route path="/sandbox/*" element={<Sandbox />} />
+          <Route path='/search-results/:search_query?' element={<SearchResultPage />} />
+          <Route path='/view-game/:gameId' element={<ViewGamePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
