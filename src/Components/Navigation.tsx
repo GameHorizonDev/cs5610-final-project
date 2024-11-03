@@ -9,7 +9,7 @@ const Navigation = () => {
                 <li><Link to="/register">Register</Link></li>
                 <li><Link to="/profile">Profile</Link></li>
                 <li><Link to="/sandbox/homepage">Sandbox Home</Link></li>
-                <li><Link to="/sandbox/gamereview">Game Review</Link></li>
+                <li><Link to="/sandbox/gamereviews/540">Game Reviews</Link></li>
             </ul>
         </nav>
     );

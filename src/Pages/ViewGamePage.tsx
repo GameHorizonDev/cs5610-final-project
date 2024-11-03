@@ -59,7 +59,7 @@ export default function ViewGamePage() {
                     <p><strong>Publisher:</strong> {gameData.publisher}</p>
                     <p><strong>Developer:</strong> {gameData.developer}</p>
                     <p><strong>Release Date:</strong> {gameData.release_date}</p>
-                    <p><strong>Favorites:</strong> {gameData.localGameData.favoritedBy.length}</p>
+                    <p><strong>Favorites:</strong> {gameData.localGameData?.favoritedBy?.length || 0}</p>
                     <p className="card-text">{gameData.short_description}</p>
                     <a href={gameData.game_url} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Play Now</a>
                 </div>
