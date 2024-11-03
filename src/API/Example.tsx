@@ -7,10 +7,10 @@ export default function Example() {
 
   useEffect(() => {
     axios.get(`${SERVER_BASE_URL}/example`)
-      .then(response => {
+      .then((response: { data: any; }) => {
         setGameData(response.data);
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.error('There was an error fetching the game data!', error);
       });
   }, []);
