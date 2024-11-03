@@ -10,6 +10,7 @@ import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
 import SearchResultPage from './Pages/SearchResultPage';
 import ViewGamePage from './Pages/ViewGamePage';
+import GameHorizon from './GameHorizon';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Navigation />
         <Routes>
           {/* <Route path="/" element={<Navigate to="/login" />} /> */}
-          <Route path="/login" element={<LoginPage />} />
+          {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<ProfileEditPage />} />
@@ -27,6 +28,7 @@ function App() {
           <Route path='/search-results/:search_query?' element={<SearchResultPage />} />
           <Route path='/view-game/:gameId' element={<ViewGamePage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path='/GameHorizon/*' element={<GameHorizon />} />
         </Routes>
       </Router>
 
