@@ -2,7 +2,7 @@
 // used on review pages as a sidebar item to provide a context of the game.
 
 
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface GameData {
     title?: string;

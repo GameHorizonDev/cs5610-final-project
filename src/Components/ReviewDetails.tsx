@@ -1,5 +1,5 @@
 // Shows the body of the review, and additional interactions if needed.
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReviewBody from "./ReviewBody";
 
 export default function ReviewDetails({ gameData, review, showComments }: any) {
