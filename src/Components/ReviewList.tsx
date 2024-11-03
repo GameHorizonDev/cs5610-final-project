@@ -1,7 +1,7 @@
 // A list of reviews, usually for the same game.
 // No interactions. Each review links to the review details page.
 
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ReviewBody from "./ReviewBody";
 

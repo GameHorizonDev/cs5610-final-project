@@ -1,6 +1,5 @@
 // Shows the body of a review. This includes the review text, the rating, and the user who wrote the review.
 
-import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
 export default function ReviewBody({ gameData, review }: any) {
