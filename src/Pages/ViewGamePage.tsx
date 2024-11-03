@@ -5,42 +5,47 @@ import { SERVER_BASE_URL } from "../API/apiConfig";
 
 export default function ViewGamePage() {
     const { gameId } = useParams();
-    const [gameData, setGameData] = useState<{ [key: string]: any }>({ reviews: [] });
-
-    const getGameData = async () => {
-        try {
-            const response = await axios.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
-            const gameData = response.data;
-            const localResponse = await axios.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
-                validateStatus: function (status) {
-                    return status < 500;
-                }
-            });
-            if (localResponse.status !== 200) {
-                gameData.localGameData = {}
-            } else {
-                gameData.localGameData = localResponse.data;
-            }
-            const reviewResponse = await axios.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
-            if (reviewResponse.status !== 200) {
-                gameData.reviews = [];
-            } else {
-                gameData.reviews = reviewResponse.data;
-            }
-            return gameData;
-        } catch (error) {
-            console.error("Error fetching game data:", error);
-            return {};
-        }
-    };
+    const [gameData, setGameData] = useState<{ [key: string]: any }>({});
 
     useEffect(() => {
-        const fetchGames = async () => {
-            const game = await getGameData();
-            setGameData(game);
+        const getGameData = async () => {
+            try {
+                const response = await axios.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
+                const gameData = response.data;
+
+                const localResponse = await axios.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
+                    validateStatus: function (status) {
+                        return status < 500;
+                    }
+                });
+                if (localResponse.status !== 200) {
+                    gameData.localGameData = {};
+                } else {
+                    gameData.localGameData = localResponse.data;
+                }
+
+                const reviewResponse = await axios.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
+                if (reviewResponse.status !== 200) {
+                    gameData.reviews = [];
+                } else {
+                    gameData.reviews = reviewResponse.data;
+                }
+
+                setGameData(gameData);
+            } catch (error) {
+                console.error("Error fetching game data:", error);
+                setGameData({});
+            }
         };
-        fetchGames();
+
+        getGameData();
     }, [gameId]);
+
+    if (Object.keys(gameData).length === 0) {
+        return (
+            <p>No active game available. Please select a game to view its details.</p>
+        );
+    }
 
     return (
         <div className="container mt-5">
