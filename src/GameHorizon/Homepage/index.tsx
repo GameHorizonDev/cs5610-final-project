@@ -1,47 +1,27 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+
 
 export default function Homepage(){
     return (
         <div id="sm-homepage">
             <h1 id="sm-homepage-title">This is the Homepage</h1> <hr />
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-            
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptates debitis. In sapiente molestias qui sequi adipisci dolorum tempora ab unde 
-                eos enim nostrum voluptatem illo, similique quod nesciunt molestiae fugit officiis aut. Molestiae alias iste autem repellat reiciendis, consectetur 
-                incidunt, corporis vitae saepe sit quaerat debitis illo expedita quae repellendus nostrum delectus eveniet. Fuga commodi ex ab fugit. Ipsam recusandae 
-                consectetur libero at quaerat! Fuga nihil odit non ad, labore rerum quibusdam doloribus omnis nulla laudantium dolorum aspernatur delectus minima praesentium 
-                exercitationem dignissimos repudiandae maxime facilis pariatur rem est necessitatibus tempore. Provident repudiandae adipisci tempora totam minima, et porro?</p> <hr />
-            {/* This is where you get the post structure of the  */}
+            <div id="sm-sample-post"className="border border-danger">
+                <div className="d-flex align-items-start ms-3 pt-4">
+                    <FaRegCircleUser /> 
+                    <span className="d-inline-flex ms-1"> 
+                        <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
+                    </span> <br/>
+                    
+                </div>
+                <div className="d-flex align-items-start ms-3">
+                    <p className="text-start">(Title of the post display here)</p>
+                </div>
+                
+            </div>
+            {/* Optional in-game picture here if the user post it up  */}
         </div>
     );
 }

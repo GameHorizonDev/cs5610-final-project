@@ -10,6 +10,7 @@ const Navigation = () => {
                 <li><Link to="/profile">Profile</Link></li>
                 <li><Link to="/sandbox/homepage">Sandbox Home</Link></li>
                 <li><Link to="/sandbox/gamereviews/540">Game Reviews</Link></li>
+                <li><Link to="/GameHorizon/Homepage">Homepage</Link></li>
             </ul>
         </nav>
     );
