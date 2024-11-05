@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { SERVER_BASE_URL } from '../API/apiConfig';
+import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +15,7 @@ const LoginPage: React.FC = () => {
         setError(null);
 
         try {
-            const response = await axios.post(`${SERVER_BASE_URL}/login`, {
+            const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/login`, {
                 email,
                 password,
             });

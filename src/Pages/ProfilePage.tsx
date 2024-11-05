@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { SERVER_BASE_URL } from '../API/apiConfig';
+import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
 
 const ProfilePage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +10,7 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${SERVER_BASE_URL}/user/profile`);
+        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/user/profile`);
         const { username, email, bio } = response.data;
         setUsername(username);
         setEmail(email);

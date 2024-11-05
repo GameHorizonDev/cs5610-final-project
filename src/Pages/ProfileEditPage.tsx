@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { SERVER_BASE_URL } from '../API/apiConfig';
+import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
 
 const ProfileEditPage: React.FC = () => {
     const [username, setUsername] = useState('Alice');
@@ -10,7 +9,7 @@ const ProfileEditPage: React.FC = () => {
 
     const handleSave = async () => {
         try {
-            const response = await axios.put(`${SERVER_BASE_URL}/user/profile`, {
+            const response = await APP_AXIOS.put(`${SERVER_BASE_URL}/user/profile`, {
                 username,
                 email,
                 bio
