@@ -19,9 +19,14 @@ export default function Homepage(){
                 <div className="d-flex align-items-start ms-3">
                     <p className="text-start">(Title of the post display here)</p>
                 </div>
+
+
+                {/* Maybe using bootstrap's carousel to display picture */}
+                <div className="d-flex align-items-start ms-3">
+                    <p className="text-start">(Optional in-game picture here if the user post it up)</p>
+                </div>
                 
             </div>
-            {/* Optional in-game picture here if the user post it up  */}
         </div>
     );
 }
