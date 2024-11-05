@@ -1,9 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
 
 const ProfilePage: React.FC = () => {
-  const [username] = useState('Alice');
-  const [email] = useState('alice@example.com');
-  const [bio] = useState('Software engineer with a love for full-stack development and teaching.');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [bio, setBio] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/user/profile`);
+        const { username, email, bio } = response.data;
+        setUsername(username);
+        setEmail(email);
+        setBio(bio);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        setError('Failed to load profile.');
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div>

@@ -1,19 +1,29 @@
 import { useParams, Link } from "react-router-dom";
-import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { SERVER_BASE_URL } from "../API/apiConfig";
+import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
+import { getCurrUserId } from "../API/user";
 
 export default function ViewGamePage() {
     const { gameId } = useParams();
     const [gameData, setGameData] = useState<{ [key: string]: any }>({});
+    const [isFavorited, setIsFavorited] = useState(false);
+    const [userId, setUserId] = useState("");
+
+    useEffect(() => {
+        const setServerId = async () => {
+            const serverUserId = await getCurrUserId();
+            setUserId(serverUserId);
+        }
+        setServerId();
+    }, [])
 
     useEffect(() => {
         const getGameData = async () => {
             try {
-                const response = await axios.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
+                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
                 const gameData = response.data;
 
-                const localResponse = await axios.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
+                const localResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
                     validateStatus: function (status) {
                         return status < 500;
                     }
@@ -22,9 +32,10 @@ export default function ViewGamePage() {
                     gameData.localGameData = {};
                 } else {
                     gameData.localGameData = localResponse.data;
+                    setIsFavorited(localResponse.data.favoritedBy?.includes(userId));
                 }
 
-                const reviewResponse = await axios.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
+                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
                 if (reviewResponse.status !== 200) {
                     gameData.reviews = [];
                 } else {
@@ -39,7 +50,46 @@ export default function ViewGamePage() {
         };
 
         getGameData();
-    }, [gameId]);
+    }, [gameId, userId]);
+
+    const handleFavorite = async () => {
+        if (!userId) {
+            return;
+        }
+        if (!isFavorited) {
+            try {
+                const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/game/favorite/${gameId}`);
+                if (response.status === 200) {
+                    setIsFavorited(true);
+                    setGameData(prevData => ({
+                        ...prevData,
+                        localGameData: {
+                            ...prevData.localGameData,
+                            favoritedBy: [...(prevData.localGameData?.favoritedBy || []), userId]
+                        }
+                    }));
+                }
+            } catch (error) {
+                console.error("Error adding game to favorites:", error);
+            }
+        } else {
+            try {
+                const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/game/unfavorite/${gameId}`);
+                if (response.status === 200) {
+                    setIsFavorited(false);
+                    setGameData(prevData => ({
+                        ...prevData,
+                        localGameData: {
+                            ...prevData.localGameData,
+                            favoritedBy: (prevData.localGameData?.favoritedBy || []).filter((id: string) => id !== userId)
+                        }
+                    }));
+                }
+            } catch (error) {
+                console.error("Error removing game from favorites:", error);
+            }
+        }
+    };
 
     if (Object.keys(gameData).length === 0) {
         return (
@@ -62,6 +112,16 @@ export default function ViewGamePage() {
                     <p><strong>Favorites:</strong> {gameData.localGameData?.favoritedBy?.length || 0}</p>
                     <p className="card-text">{gameData.short_description}</p>
                     <a href={gameData.game_url} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Play Now</a>
+
+                    <button
+                        className="btn btn-outline-primary ms-2"
+                        onClick={handleFavorite}
+                    >
+                        {isFavorited ? "Favorited" : "Add to Favorites"}
+                    </button>
+                    <Link to={`#`} className="btn btn-success ms-2">
+                        Create a Review
+                    </Link>
                 </div>
             </div>
 
@@ -70,8 +130,8 @@ export default function ViewGamePage() {
                 <p>No reviews available.</p>
             ) : (
                 gameData.reviews.map((review: any) => (
-                    <Link to={`/sandbox/gamereview`} className="text-decoration-none text-dark">
-                        <div className="card mb-3" key={review._id}>
+                    <Link to={`/sandbox/gamereview`} className="text-decoration-none text-dark" key={review._id}>
+                        <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">Rating: {review.rating}</h5>
                                 <p className="card-text">{review.text}</p>

@@ -1,14 +1,14 @@
 import { useParams, Link } from "react-router-dom";
-import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { SERVER_BASE_URL } from "../API/apiConfig";
+import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 
 export default function SearchResultPage() {
     const { search_query } = useParams();
     const [foundGames, setFoundGames] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const getGamesBySubStringTitle = async (search: string) => {
-        const gamesResponse = await axios.get(`${SERVER_BASE_URL}/games-api`);
+        const gamesResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api`);
         if (gamesResponse.status !== 200) {
             return [];
         }
@@ -17,7 +17,7 @@ export default function SearchResultPage() {
         );
         for (const game of games) {
             try {
-                const localResponse = await axios.get(`${SERVER_BASE_URL}/game/view/${game.id}`, {
+                const localResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/game/view/${game.id}`, {
                     validateStatus: function (status) {
                         return status < 500;
                     }
@@ -27,7 +27,7 @@ export default function SearchResultPage() {
                 } else {
                     game.numFavorites = localResponse.data.favoritedBy.length;
                 }
-                const reviewResponse = await axios.get(`${SERVER_BASE_URL}/review/all/by-game-id/${game.id}`);
+                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${game.id}`);
                 if (reviewResponse.status !== 200) {
                     game.numReviews = 0;
                 } else {
@@ -43,8 +43,10 @@ export default function SearchResultPage() {
 
     useEffect(() => {
         const fetchGames = async () => {
+            setLoading(true);
             const games = await getGamesBySubStringTitle(search_query || '');
             setFoundGames(games);
+            setLoading(false);
         };
         fetchGames();
     }, [search_query]);
@@ -52,11 +54,13 @@ export default function SearchResultPage() {
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-4">Search Results</h1>
-            {foundGames.length > 0 ? (
+            {loading ? (
+                <p className="text-center">Loading...</p>
+            ) : foundGames.length > 0 ? (
                 <ul className="list-group">
                     {foundGames.map((game, index) => (
-                        <Link to={`/view-game/${game.id}`} className="text-decoration-none text-dark">
-                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                        <Link to={`/view-game/${game.id}`} className="text-decoration-none text-dark" key={index}>
+                            <li className="list-group-item d-flex justify-content-between align-items-center mb-2">
                                 <div>
                                     <h5 className="mb-1">{game.title}</h5>
                                     <p className="mb-1">{game.short_description}</p>
