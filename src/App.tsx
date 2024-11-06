@@ -9,7 +9,8 @@ import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
 import SearchResultPage from './Pages/SearchResultPage';
 import ViewGamePage from './Pages/ViewGamePage';
-import HomePage from './Pages/HomePage';
+// import HomePage from './Pages/HomePage';
+import Homepage from './Homepage/index'
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={<Homepage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
