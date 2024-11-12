@@ -10,6 +10,8 @@ import Sandbox from './Sandbox';
 import SearchResultPage from './Pages/SearchResultPage';
 import ViewGamePage from './Pages/ViewGamePage';
 import HomePage from './Pages/HomePage';
+import BookmarkedReviews from './Pages/BookmarkedReviews';
+import FavoritedGames from './Pages/FavoritedGames';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/sandbox/*" element={<Sandbox />} />
           <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
           <Route path="/view-game/:gameId" element={<ViewGamePage />} />
+          <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
+          <Route path='/profile/favorite-games' element={<FavoritedGames />} />
         </Routes>
       </Router>
     </div>
