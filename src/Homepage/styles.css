@@ -1,0 +1,40 @@
+body   {    
+  color: white;
+}
+body * {  font-family: Arial, Helvetica, sans-serif;  }
+
+@media (min-width: 768px) {
+  #sm-homepage {
+    /* padding-left: 140px !important; */
+    background-color: gray;
+    padding-top: 1em;
+    
+  }
+}
+
+
+#sm-sample-post{
+  margin: auto;
+}
+
+
+#sm-post-boundary{
+  max-width: 50%;
+  max-height: 50%;
+  margin: auto;
+}
+
+
+/* Homepage Trending section */
+#sm-trending-section{
+  width: 20%;
+}
+
+/* Individual trending components */
+#sm-movie-trending-section{
+  text-align: left;
+}
+
+#sm-critics-trending-section{
+  text-align: left;
+}

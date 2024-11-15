@@ -9,7 +9,7 @@ import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
 import SearchResultPage from './Pages/SearchResultPage';
 import ViewGamePage from './Pages/ViewGamePage';
-import HomePage from './Pages/HomePage';
+import HomePage from './Homepage/index'
 import BookmarkedReviews from './Pages/BookmarkedReviews';
 import FavoritedGames from './Pages/FavoritedGames';
 
