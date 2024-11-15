@@ -10,7 +10,7 @@ import TrendingMovies from "./TrendingMovies";
 import TrendingCritics from "./TrandingCritics";
 
 
-export default function Homepage(){
+const HomePage: React.FC = () =>{
     return (
         <div id="sm-homepage">
             {/* Make the trendingNow section fixed to the right side of the div */}
@@ -197,4 +197,6 @@ export default function Homepage(){
             </div>
         </div>
     );
-}
+};
+
+export default HomePage;
