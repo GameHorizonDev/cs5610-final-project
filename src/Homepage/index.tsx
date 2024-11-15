@@ -10,25 +10,25 @@ import TrendingMovies from "./TrendingMovies";
 import TrendingCritics from "./TrandingCritics";
 
 
-const HomePage: React.FC = () =>{
+const HomePage: React.FC = () => {
     return (
-        <div id="sm-homepage">
+        <div id="sm-homepage" className="body-white body-homepage">
             {/* Make the trendingNow section fixed to the right side of the div */}
             <div id="sm-trending-section" className="d-none d-sm-block float-end me-4">
                 <TrendingMovies />
                 <TrendingCritics />
             </div>
-            
+
 
             <div id="sm-post-boundary">
                 {/* Sample post #1 */}
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -38,15 +38,15 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
 
                 <hr />
@@ -54,11 +54,11 @@ const HomePage: React.FC = () =>{
                 {/* Sample post #2 */}
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -68,26 +68,26 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
                 <hr />
 
                 {/* Sample post #3 */}
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -97,26 +97,26 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
 
                 <hr />
 
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -126,25 +126,25 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
                 <hr />
 
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -154,26 +154,26 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
 
                 <hr />
 
                 <div id="sm-sample-post" className="border border-danger">
                     <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                        <FaRegCircleUser /> 
-                        <span className="d-inline-flex ms-1"> 
+                        <FaRegCircleUser />
+                        <span className="d-inline-flex ms-1">
                             <p> user_name <b>posted</b> a review on <b>"game_name"</b> <span>&#183;</span> (Date here) </p>
-                        </span> <br/>
-                        
+                        </span> <br />
+
                     </div>
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Title of the post display here)</p>
@@ -183,15 +183,15 @@ const HomePage: React.FC = () =>{
                     {/* Maybe using bootstrap's carousel to display picture */}
                     <div className="d-flex align-items-start ms-3 me-3">
                         <p className="text-start">(Optional in-game picture here if the user post it up)</p>
-                    </div> 
-                    
+                    </div>
+
 
 
                     <div className="d-flex bd-highlight mb-3">
-                        <div className="m-2 p-2 bd-highlight"><FcLike/></div>
-                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots/></div>
-                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark/></div>
-                    </div>  
+                        <div className="m-2 p-2 bd-highlight"><FcLike /></div>
+                        <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
+                        <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                    </div>
                 </div>
                 <hr />
             </div>

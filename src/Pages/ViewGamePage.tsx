@@ -20,9 +20,11 @@ export default function ViewGamePage() {
     useEffect(() => {
         const getGameData = async () => {
             try {
+                // Getting API data
                 const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
                 const gameData = response.data;
 
+                // Getting Mongoose data for the game
                 const localResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
                     validateStatus: function (status) {
                         return status < 500;
@@ -35,6 +37,7 @@ export default function ViewGamePage() {
                     setIsFavorited(localResponse.data.favoritedBy?.includes(userId));
                 }
 
+                // Getting all of the review of a game (Important for Homepage?)
                 const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
                 if (reviewResponse.status !== 200) {
                     gameData.reviews = [];

@@ -15,7 +15,7 @@ import FavoritedGames from './Pages/FavoritedGames';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container">
       <Router>
         <Navigation />
         <Routes>
