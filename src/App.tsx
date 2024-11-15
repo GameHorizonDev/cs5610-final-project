@@ -9,8 +9,9 @@ import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
 import SearchResultPage from './Pages/SearchResultPage';
 import ViewGamePage from './Pages/ViewGamePage';
-// import HomePage from './Pages/HomePage';
-import Homepage from './Homepage/index'
+import HomePage from './Pages/HomePage';
+import BookmarkedReviews from './Pages/BookmarkedReviews';
+import FavoritedGames from './Pages/FavoritedGames';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Homepage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
@@ -28,6 +29,8 @@ function App() {
           <Route path="/sandbox/*" element={<Sandbox />} />
           <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
           <Route path="/view-game/:gameId" element={<ViewGamePage />} />
+          <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
+          <Route path='/profile/favorite-games' element={<FavoritedGames />} />
         </Routes>
       </Router>
     </div>

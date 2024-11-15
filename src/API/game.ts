@@ -27,4 +27,16 @@ const getGameData = async ({ gameId }: { gameId: string }) => {
     }
 };
 
-export { getGameData };
+const getReviewData = async ({ reviewId }: { reviewId: string }) => {
+    try {
+        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/view/${reviewId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching review data:", error);
+        return []
+    }
+
+
+}
+
+export { getGameData, getReviewData };
