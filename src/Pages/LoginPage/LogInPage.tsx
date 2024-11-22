@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
+import { SERVER_BASE_URL, APP_AXIOS } from '../../API/apiConfig';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');

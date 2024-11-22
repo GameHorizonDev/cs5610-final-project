@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import Navigation from './Components/Navigation';
 import Example from './API/Example';
-import LoginPage from './Pages/LogInPage';
-import RegisterPage from './Pages/RegisterPage';
+import LoginPage from './Pages/LoginPage/LogInPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';

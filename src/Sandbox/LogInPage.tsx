@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginPage from '../Pages/LogInPage';
+import LoginPage from '../Pages/LoginPage/LogInPage';
 
 export default function SandboxLoginPage() {
     return (
