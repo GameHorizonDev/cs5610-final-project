@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
 import { Link } from 'react-router-dom'; 
 import BookmarkedReviews from './BookmarkedReviews';
+import FavoritedGames from './FavoritedGames';
 
 const ProfilePage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -56,6 +57,7 @@ const ProfilePage: React.FC = () => {
 
     <div style={{ flex: 1 }}>
         <BookmarkedReviews />
+        <FavoritedGames />
       </div>
        </div>
   );
