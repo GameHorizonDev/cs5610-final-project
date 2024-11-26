@@ -9,7 +9,7 @@ const ProfileEditPage: React.FC = () => {
 
     const handleSave = async () => {
         try {
-            const response = await APP_AXIOS.put(`${SERVER_BASE_URL}/user/profile`, {
+            const response = await APP_AXIOS.patch(`${SERVER_BASE_URL}/user/update-user`, {
                 username,
                 email,
                 bio

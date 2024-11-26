@@ -10,7 +10,7 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/user/profile`);
+        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
         const { username, email, bio } = response.data;
         setUsername(username);
         setEmail(email);
