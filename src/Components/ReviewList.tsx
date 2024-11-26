@@ -9,7 +9,8 @@ export default function ReviewList({ gameData, reviews }: any) {
     return (
         <>
             {reviews.map((review: any) => (
-                <Link to={`/sandbox/gamereviews/${gameData.id}/review/${review._id}`}>
+                <Link to={`/gamereviews/${gameData.id}/review/${review._id}`}
+                    className="text-decoration-none">
                     <ReviewBody gameData={gameData} review={review} />
                 </Link>
             ))}
