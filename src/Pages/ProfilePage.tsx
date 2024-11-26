@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SERVER_BASE_URL, APP_AXIOS } from '../API/apiConfig';
+import { Link } from 'react-router-dom'; 
 
 const ProfilePage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -35,14 +36,21 @@ const ProfilePage: React.FC = () => {
         <strong>Username:</strong>
         <p>{username}</p>
       </div>
+
       <div>
         <strong>Email:</strong>
         <p>{email}</p>
       </div>
+
       <div>
         <strong>Bio:</strong>
         <p>{bio}</p>
       </div>
+
+      <Link to="/profile/edit">
+        <button type="button">Manage Account</button>
+      </Link>
+
     </div>
   );
 };
