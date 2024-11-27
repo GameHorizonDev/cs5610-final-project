@@ -5,17 +5,6 @@ import ReviewList from '../Components/ReviewList';
 
 import { getGameData } from '../API/game';
 
-interface Review {
-    _id: string;
-    gameId: number;
-    reviewerId: string;
-    rating: number;
-    text: string;
-    comments: string[]; // Comment IDs
-    bookmarkedBy: string[];
-    createdAt: string;
-    updatedAt: string;
-}
 
 
 const GameReviews: React.FC = () => {
