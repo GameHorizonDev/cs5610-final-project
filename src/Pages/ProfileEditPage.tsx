@@ -30,6 +30,10 @@ const ProfileEditPage: React.FC = () => {
         navigate('/profile');
     };
 
+    const handleLogout = () => {
+        navigate('/logout'); //
+    };
+
     return (
         <div className="account-settings-container">
             <h1 className="page-title">Edit Profile</h1>
@@ -90,9 +94,9 @@ const ProfileEditPage: React.FC = () => {
                      </Link>
                  </p>              
                  <p>
-                     <Link to="/logout" className="profile-link">
-                         Log Out
-                     </Link>
+                 <span className="profile-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                        Log Out
+                    </span>
                  </p>
              </div>
 

@@ -15,6 +15,7 @@ import FavoritedGames from './Pages/FavoritedGames';
 import GameReview from './Pages/GameReviews';
 import SingleReview from './Pages/SingleReview';
 import ReviewEditor from './Pages/ReviewEditor';
+import LogoutPage from './Pages/LogoutPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<ProfileEditPage />} />

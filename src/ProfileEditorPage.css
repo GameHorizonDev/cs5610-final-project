@@ -106,3 +106,14 @@
     background-color: #ff5722; 
     margin-right: 10px; 
   }
+
+  .profile-link {
+    color: #007bff; 
+    text-decoration: none; 
+    font-weight: bold;
+    cursor: pointer; 
+}
+
+.profile-link:hover {
+    text-decoration: underline; 
+}
