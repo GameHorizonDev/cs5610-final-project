@@ -32,38 +32,6 @@ const ProfilePage: React.FC = () => {
     return <p>{error}</p>;
   }
 
-  // return (
-//     <div className="profile-container" style={{ display: 'flex', gap: '20px' }}>
-//     <div style={{ flex: 1 }}>
-//       <h2>Profile</h2>
-//       <div>
-//         <strong>Username:</strong>
-//         <p>{username}</p>
-//       </div>
-
-//       <div>
-//         <strong>Email:</strong>
-//         <p>{email}</p>
-//       </div>
-
-//       <div>
-//         <strong>Bio:</strong>
-//         <p>{bio}</p>
-//       </div>
-
-//       <Link to="/profile/edit">
-//         <button type="button">Manage Account</button>
-//       </Link>
-//     </div>
-
-//     <div style={{ flex: 1 }}>
-//         <BookmarkedReviews />
-//         <FavoritedGames />
-//       </div>
-//        </div>
-//   );
-// };
-
 return (
   <div className="profile-page-container">
     <div className="profile-left">
