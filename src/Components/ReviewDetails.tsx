@@ -36,6 +36,34 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
         getUserData();
     }, []);
 
+    const fetchUserProfile = async (commenterId: string) => {
+        try {
+            const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile/${commenterId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching profile for ID: ${commenterId}`, error);
+            return null;
+        }
+    };
+    const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
+
+    useEffect(() => {
+        const fetchUsernames = async () => {
+            const newUsers: { [key: string]: string } = {};
+            for (const comment of review.comments) {
+                if (!usernames[comment.commenterId]) {
+                    const profile = await fetchUserProfile(comment.commenterId);
+                    if (profile) {
+                        newUsers[comment.commenterId] = profile.username;
+                    }
+                }
+            }
+            setUsernames({ ...usernames, ...newUsers });
+        };
+
+        fetchUsernames();
+    }, [review.comments]);
+
     const handleUnbookmark = async (reviewId: string) => {
         try {
             const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/review/unbookmark/${reviewId}`);
@@ -102,7 +130,7 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
                                 className="list-group-item d-flex justify-content-between align-items-start mb-2"
                             >
                                 <div>
-                                    <strong>{comment.commenterId}</strong>: {comment.text}
+                                    <strong>{usernames[comment.commenterId]}</strong>: {comment.text}
                                 </div>
                             </div>
                         ))}
