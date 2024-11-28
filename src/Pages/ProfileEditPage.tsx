@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../ProfileEditorPage.css";
 
 const ProfileEditPage: React.FC = () => {
@@ -20,17 +20,14 @@ const ProfileEditPage: React.FC = () => {
 
   const [message, setMessage] = useState<string | null>(null);
 
-  const handleSave = async () => {
+  const handleUpdate = async () => {
     try {
       // Prepare the payload
       const payload: any = {};
-    //   if (username) payload['username'] = username;
-    //   if (email) payload['email'] = email;
-    //   if (password) payload['password'] = password;
 
-      if (username !== initialUsername) payload['username'] = username; // Only include if changed
-      if (email !== initialEmail) payload['email'] = email; // Only include if changed
-      if (password !== initialPassword) payload['password'] = password; // Only include if change
+      if (username !== initialUsername) payload["username"] = username; // Only include if changed
+      if (email !== initialEmail) payload["email"] = email; // Only include if changed
+      if (password !== initialPassword) payload["password"] = password; // Only include if change
 
       // Make the API call
       const response = await APP_AXIOS.patch(
@@ -39,7 +36,6 @@ const ProfileEditPage: React.FC = () => {
       );
       setMessage("Profile updated successfully!");
       console.log("Profile updated:", response.data);
-
     } catch (error) {
       console.error("Error updating profile:", error);
       setMessage("Failed to update profile.");
@@ -50,8 +46,25 @@ const ProfileEditPage: React.FC = () => {
     navigate("/profile");
   };
 
-  const handleLogout = () => {
-    navigate("/logout"); //
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleLogout = async () => {
+    try {
+      // Send the logout request to the server
+      const response = await APP_AXIOS.post("/logout");
+      if (response.status === 200) {
+        console.log(response.data.message); // Optional: Log success message
+      } else {
+        console.error("Logout failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    } finally {
+      // Redirect the user to the login page after logout
+      navigate("/login");
+    }
   };
 
   return (
@@ -95,7 +108,7 @@ const ProfileEditPage: React.FC = () => {
         <button type="button" className="cancel-button" onClick={handleCancel}>
           Cancel
         </button>
-        <button type="button" className="update-button" onClick={handleSave}>
+        <button type="button" className="update-button" onClick={handleUpdate}>
           Update
         </button>
       </div>
@@ -104,9 +117,13 @@ const ProfileEditPage: React.FC = () => {
       <div className="settings-section">
         <h3 className="section-header">PROFILE</h3>
         <p>
-          <Link to="/profile" className="profile-link">
+        <span
+            className="profile-link"
+            onClick={handleProfile}
+            style={{ cursor: "pointer" }}
+          >
             My Profile
-          </Link>
+        </span>
         </p>
         <p>
           <span
