@@ -26,6 +26,7 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
             try {
                 const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
                 const userData = response.data;
+                console.log("User data:", userData);
                 setProfile(userData);
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -34,6 +35,34 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
 
         getUserData();
     }, []);
+
+    const fetchUserProfile = async (commenterId: string) => {
+        try {
+            const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile/${commenterId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching profile for ID: ${commenterId}`, error);
+            return null;
+        }
+    };
+    const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
+
+    useEffect(() => {
+        const fetchUsernames = async () => {
+            const newUsers: { [key: string]: string } = {};
+            for (const comment of review.comments) {
+                if (!usernames[comment.commenterId]) {
+                    const profile = await fetchUserProfile(comment.commenterId);
+                    if (profile) {
+                        newUsers[comment.commenterId] = profile.username;
+                    }
+                }
+            }
+            setUsernames({ ...usernames, ...newUsers });
+        };
+
+        fetchUsernames();
+    }, [review.comments]);
 
     const handleUnbookmark = async (reviewId: string) => {
         try {
@@ -80,7 +109,7 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
                         Bookmark ({review.bookmarkedBy.length})
                     </button>
                 )}
-                {review.bookmarkedBy.some((user: any) => user._id === profile?._id) && (
+                {(review.reviewerId?._id === profile?._id) && (
                     <button
                         className="btn btn-outline-secondary float-end me-2"
                         onClick={() => window.location.href = `/GameReviews/${gameData.id}/review/${review._id}/edit`}
@@ -101,7 +130,7 @@ export default function ReviewDetails({ gameData, review, showComments, fetchGam
                                 className="list-group-item d-flex justify-content-between align-items-start mb-2"
                             >
                                 <div>
-                                    <strong>{comment.commenterId}</strong>: {comment.text}
+                                    <strong>{usernames[comment.commenterId]}</strong>: {comment.text}
                                 </div>
                             </div>
                         ))}

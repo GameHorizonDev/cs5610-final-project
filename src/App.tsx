@@ -18,29 +18,30 @@ import ReviewEditor from './Pages/ReviewEditor';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" >
       <Router>
         <Navigation />
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/edit" element={<ProfileEditPage />} />
-          <Route path="/sandbox/api/example" element={<Example />} />
-          <Route path="/sandbox/*" element={<Sandbox />} />
-          <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
-          <Route path="/view-game/:gameId" element={<ViewGamePage />} />
-          <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
-          <Route path='/profile/favorite-games' element={<FavoritedGames />} />
-          <Route path="GameReviews/:gameId" element={<GameReview />} />
-          <Route path="GameReviews/:gameId/review/:revId" element={<SingleReview />} />
-          <Route path="GameReviews/:gameId/review/:revId/edit" element={<ReviewEditor />} />
-
-        </Routes>
+        <div className="wd-main-content-offset p-3">
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
+            <Route path="/sandbox/api/example" element={<Example />} />
+            <Route path="/sandbox/*" element={<Sandbox />} />
+            <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
+            <Route path="/view-game/:gameId" element={<ViewGamePage />} />
+            <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
+            <Route path='/profile/favorite-games' element={<FavoritedGames />} />
+            <Route path="GameReviews/:gameId" element={<GameReview />} />
+            <Route path="GameReviews/:gameId/review/:revId" element={<SingleReview />} />
+            <Route path="GameReviews/:gameId/review/:revId/edit" element={<ReviewEditor />} />
+          </Routes>
+        </div>
       </Router>
-    </div>
+    </div >
   );
 }
 
