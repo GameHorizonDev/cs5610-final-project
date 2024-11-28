@@ -43,19 +43,19 @@
   
   .manage-account-link {
     display: block;
-    text-align: right; /* 靠右对齐 */
+    text-align: right; 
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
     margin-top: 10px;
-    border-top: 1px solid #ddd; /* 添加横线 */
-    padding-top: 10px; /* 和横线的间距 */
+    border-top: 1px solid #ddd;
+    padding-top: 10px; 
   }
 
   .manage-account-container {
-    display: flex; /* 使用 flexbox 对齐 */
-    justify-content: flex-end; /* 让内容靠右对齐 */
-    margin-top: 20px; /* 增加与其他内容的间距 */
+    display: flex; 
+    justify-content: flex-end; 
+    margin-top: 20px; 
   }
   
   .profile-right {

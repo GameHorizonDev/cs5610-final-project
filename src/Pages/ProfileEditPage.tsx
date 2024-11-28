@@ -24,9 +24,13 @@ const ProfileEditPage: React.FC = () => {
     try {
       // Prepare the payload
       const payload: any = {};
-      if (username) payload['username'] = username;
-      if (email) payload['email'] = email;
-      if (password) payload['password'] = password;
+    //   if (username) payload['username'] = username;
+    //   if (email) payload['email'] = email;
+    //   if (password) payload['password'] = password;
+
+      if (username !== initialUsername) payload['username'] = username; // Only include if changed
+      if (email !== initialEmail) payload['email'] = email; // Only include if changed
+      if (password !== initialPassword) payload['password'] = password; // Only include if change
 
       // Make the API call
       const response = await APP_AXIOS.patch(
