@@ -1,0 +1,113 @@
+/* ProfilePage.css */
+.profile-page-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .profile-left {
+    flex: 0 0 300px;
+    background-color: #fff;
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    margin-right: 10px;
+  }
+  
+  .avatar img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .username {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .email {
+    margin: 5px 0 0;
+    color: #666;
+  }
+  
+  .manage-account-link {
+    display: block;
+    text-align: right; 
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px; 
+  }
+
+  .manage-account-container {
+    display: flex; 
+    justify-content: flex-end; 
+    margin-top: 20px; 
+  }
+  
+  .profile-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .section-header {
+    position: relative; 
+    display: flex;
+    align-items: center; 
+    padding-left: 10px; 
+    margin-bottom: 15px;
+    font-size: 18px; 
+    font-weight: bold;
+    color: #333; 
+    text-transform: uppercase;
+  }
+  
+  /* a vertical red line on the left */
+  .section-header::before {
+    content: ''; 
+    position: absolute; 
+    left: 0; 
+    top: 0;
+    bottom: 0; 
+    display: block;
+    width: 4px; 
+    height: 100%; 
+    background-color: #ff5722; 
+    margin-right: 10px; 
+  }
+
+  .account-settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+  
