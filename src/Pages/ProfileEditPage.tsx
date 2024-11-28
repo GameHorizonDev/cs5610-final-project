@@ -23,10 +23,10 @@ const ProfileEditPage: React.FC = () => {
   const handleSave = async () => {
     try {
       // Prepare the payload
-      const payload: Record<string, string> = {};
-      if (username) payload.username = username;
-      if (email) payload.email = email;
-      if (password) payload.password = password;
+      const payload: any = {};
+      if (username) payload['username'] = username;
+      if (email) payload['email'] = email;
+      if (password) payload['password'] = password;
 
       // Make the API call
       const response = await APP_AXIOS.patch(
