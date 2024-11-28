@@ -25,9 +25,9 @@ const ProfileEditPage: React.FC = () => {
       // Prepare the payload
       const payload: any = {};
 
-      if (username !== initialUsername) payload["username"] = username; 
-      if (email !== initialEmail) payload["email"] = email; 
-      if (password !== initialPassword) payload["password"] = password; 
+      if (username !== initialUsername) payload["username"] = username;
+      if (email !== initialEmail) payload["email"] = email;
+      if (password !== initialPassword) payload["password"] = password;
 
       // Make the API call
       const response = await APP_AXIOS.patch(
@@ -53,9 +53,9 @@ const ProfileEditPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       // Send the logout request to the server
-      const response = await APP_AXIOS.post("/logout");
+      const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/logout`);
       if (response.status === 200) {
-        console.log(response.data.message); 
+        console.log(response.data.message);
       } else {
         console.error("Logout failed:", response.data.message);
       }
@@ -116,13 +116,13 @@ const ProfileEditPage: React.FC = () => {
       <div className="settings-section">
         <h3 className="section-header">PROFILE</h3>
         <p>
-        <span
+          <span
             className="profile-link"
             onClick={handleProfile}
             style={{ cursor: "pointer" }}
           >
             My Profile
-        </span>
+          </span>
         </p>
         <p>
           <span
