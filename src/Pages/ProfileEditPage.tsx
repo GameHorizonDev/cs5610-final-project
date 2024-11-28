@@ -25,9 +25,9 @@ const ProfileEditPage: React.FC = () => {
       // Prepare the payload
       const payload: any = {};
 
-      if (username !== initialUsername) payload["username"] = username; // Only include if changed
-      if (email !== initialEmail) payload["email"] = email; // Only include if changed
-      if (password !== initialPassword) payload["password"] = password; // Only include if change
+      if (username !== initialUsername) payload["username"] = username; 
+      if (email !== initialEmail) payload["email"] = email; 
+      if (password !== initialPassword) payload["password"] = password; 
 
       // Make the API call
       const response = await APP_AXIOS.patch(
@@ -55,14 +55,13 @@ const ProfileEditPage: React.FC = () => {
       // Send the logout request to the server
       const response = await APP_AXIOS.post("/logout");
       if (response.status === 200) {
-        console.log(response.data.message); // Optional: Log success message
+        console.log(response.data.message); 
       } else {
         console.error("Logout failed:", response.data.message);
       }
     } catch (error) {
       console.error("Error during logout:", error);
     } finally {
-      // Redirect the user to the login page after logout
       navigate("/login");
     }
   };
@@ -84,7 +83,7 @@ const ProfileEditPage: React.FC = () => {
       </div>
 
       <div className="settings-section">
-        <label className="input-label">Password</label>
+        <label className="input-label">New Password</label>
         <input
           type="text"
           value={password}
