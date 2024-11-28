@@ -110,7 +110,7 @@ const ProfileEditPage: React.FC = () => {
         <button type="button" className="update-button" onClick={handleUpdate}>
           Update
         </button>
-      </div>
+      </div><br/><br/>
 
       {/* PROFILE */}
       <div className="settings-section">
