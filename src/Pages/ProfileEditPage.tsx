@@ -11,13 +11,11 @@ const ProfileEditPage: React.FC = () => {
   const {
     username: initialUsername,
     email: initialEmail,
-    role: initialRole,
     password: initialPassword,
   } = location.state || {};
 
   const [username, setUsername] = useState(initialUsername || "");
   const [email, setEmail] = useState(initialEmail || "");
-  const [role, setRole] = useState(initialRole || "");
   const [password, setPassword] = useState(initialPassword || "");
 
   const [message, setMessage] = useState<string | null>(null);
@@ -28,7 +26,6 @@ const ProfileEditPage: React.FC = () => {
       const payload: Record<string, string> = {};
       if (username) payload.username = username;
       if (email) payload.email = email;
-      if (role) payload.role = role;
       if (password) payload.password = password;
 
       // Make the API call
@@ -87,19 +84,6 @@ const ProfileEditPage: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="text-input"
         />
-      </div>
-
-      <div className="settings-section">
-        <label className="input-label">Role</label>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="select-input"
-        >
-          <option value="critic">Critic</option>
-          <option value="audience">Audience</option>
-          <option value="admin">Admin</option>
-        </select>
       </div>
 
       {/* ACTION BUTTONS */}

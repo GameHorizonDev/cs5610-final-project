@@ -56,7 +56,6 @@ const ProfilePage: React.FC = () => {
             state={{
               username,
               email,
-              role,
               password,
             }}
           >
