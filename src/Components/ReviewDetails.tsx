@@ -1,37 +1,156 @@
-// Shows the body of the review, and additional interactions if needed.
-import { useState } from 'react';
+import { useState } from "react";
 import ReviewBody from "./ReviewBody";
+import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
+import { useEffect } from "react";
 
-export default function ReviewDetails({ gameData, review, showComments }: any) {
-    const [newComment, setNewComment] = useState('');
+export default function ReviewDetails({ gameData, review, showComments, fetchGames }: any) {
+    const [newComment, setNewComment] = useState("");
 
-    const handleCommentSubmit = () => {
+    const handleCommentSubmit = async () => {
+        if (!newComment.trim()) return;
+
+        try {
+            const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/comment/add/${review._id}`, { text: newComment });
+            if (response.status === 201) {
+                review.comments.push(response.data);
+                setNewComment("");
+            }
+        } catch (error) {
+            console.error("Failed to add comment", error);
+        }
+    };
+    const [profile, setProfile] = useState<any>(null);
+
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
+                const userData = response.data;
+                console.log("User data:", userData);
+                setProfile(userData);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        getUserData();
+    }, []);
+
+    const fetchUserProfile = async (commenterId: string) => {
+        try {
+            const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile/${commenterId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching profile for ID: ${commenterId}`, error);
+            return null;
+        }
+    };
+    const [usernames, setUsernames] = useState<{ [key: string]: string }>({});
+
+    useEffect(() => {
+        const fetchUsernames = async () => {
+            const newUsers: { [key: string]: string } = {};
+            for (const comment of review.comments) {
+                if (!usernames[comment.commenterId]) {
+                    const profile = await fetchUserProfile(comment.commenterId);
+                    if (profile) {
+                        newUsers[comment.commenterId] = profile.username;
+                    }
+                }
+            }
+            setUsernames({ ...usernames, ...newUsers });
+        };
+
+        fetchUsernames();
+    }, [review.comments]);
+
+    const handleUnbookmark = async (reviewId: string) => {
+        try {
+            const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/review/unbookmark/${reviewId}`);
+            if (response.status === 200) {
+                fetchGames();
+            }
+        } catch (error) {
+            console.error("Error unbookmarking review:", error);
+        }
+    };
+
+    const handlebookmark = async (reviewId: string) => {
+        try {
+            const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/review/bookmark/${reviewId}`);
+            if (response.status === 200) {
+                fetchGames();
+            }
+        } catch (error) {
+            console.error("Error bookmarking review:", error);
+        }
     };
 
     return (
-        <div>
-            <ReviewBody gameData={gameData} review={review} />
+        <div className="container mt-3">
+            <div className="mb-3">
+                <ReviewBody gameData={gameData} review={review} />
+            </div>
 
-            <button onClick={() => false}>
-                Bookmark (0)
-            </button>
+            <div className="mb-3">
 
+                {review.bookmarkedBy.some((user: any) => user._id === profile?._id) ? (
+                    <button
+                        className="btn btn-outline-danger float-end"
+                        onClick={() => handleUnbookmark(review._id)}
+                    >
+                        Unbookmark ({review.bookmarkedBy.length})
+                    </button>
+                ) : (
+                    <button
+                        className="btn btn-outline-primary float-end"
+                        onClick={() => handlebookmark(review._id)}
+                    >
+                        Bookmark ({review.bookmarkedBy.length})
+                    </button>
+                )}
+                {(review.reviewerId?._id === profile?._id) && (
+                    <button
+                        className="btn btn-outline-secondary float-end me-2"
+                        onClick={() => window.location.href = `/GameReviews/${gameData.id}/review/${review._id}/edit`}
+                    >
+                        Edit Review
+                    </button>
+                )}
+            </div>
+            <br />
             {showComments && (
-                <div style={{ marginTop: '10px' }}>
+                <div className="comments-section mt-4">
                     <h4>Comments</h4>
-                    {review?.comments.map((comment: any) => (
-                        <p key={comment._id} style={{ marginBottom: '5px' }}>
-                            <strong>{comment.commenterId}</strong>: {comment.text}
-                        </p>
-                    ))}
-                    <textarea
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        rows={2}
-                        placeholder="Add a comment"
-                        style={{ width: '100%', marginTop: '5px' }}
-                    />
-                    <button onClick={handleCommentSubmit}>Add Comment</button>
+
+                    <div className="list-group">
+                        {review?.comments.map((comment: any) => (
+                            <div
+                                key={comment._id}
+                                className="list-group-item d-flex justify-content-between align-items-start mb-2"
+                            >
+                                <div>
+                                    <strong>{usernames[comment.commenterId]}</strong>: {comment.text}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-3">
+                        <textarea
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            className="form-control mb-2"
+                            rows={2}
+                            placeholder="Add a comment"
+                        />
+                        <button
+                            onClick={handleCommentSubmit}
+                            className="btn btn-primary float-end"
+                        >
+                            Add Comment
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

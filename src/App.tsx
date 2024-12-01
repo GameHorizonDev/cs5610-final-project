@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import Navigation from './Components/Navigation';
 import Example from './API/Example';
-import LoginPage from './Pages/LogInPage';
-import RegisterPage from './Pages/RegisterPage';
+import LoginPage from './Pages/LoginPage/LogInPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import ProfileEditPage from './Pages/ProfileEditPage';
 import Sandbox from './Sandbox';
@@ -12,28 +12,36 @@ import ViewGamePage from './Pages/ViewGamePage';
 import HomePage from './Homepage/index'
 import BookmarkedReviews from './Pages/BookmarkedReviews';
 import FavoritedGames from './Pages/FavoritedGames';
+import GameReview from './Pages/GameReviews';
+import SingleReview from './Pages/SingleReview';
+import ReviewEditor from './Pages/ReviewEditor';
 
 function App() {
   return (
-    <div className="App container">
+    <div className="App" >
       <Router>
         <Navigation />
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/edit" element={<ProfileEditPage />} />
-          <Route path="/sandbox/api/example" element={<Example />} />
-          <Route path="/sandbox/*" element={<Sandbox />} />
-          <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
-          <Route path="/view-game/:gameId" element={<ViewGamePage />} />
-          <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
-          <Route path='/profile/favorite-games' element={<FavoritedGames />} />
-        </Routes>
+        <div className="wd-main-content-offset p-3">
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
+            <Route path="/sandbox/api/example" element={<Example />} />
+            <Route path="/sandbox/*" element={<Sandbox />} />
+            <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
+            <Route path="/view-game/:gameId" element={<ViewGamePage />} />
+            <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
+            <Route path='/profile/favorite-games' element={<FavoritedGames />} />
+            <Route path="GameReviews/:gameId" element={<GameReview />} />
+            <Route path="GameReviews/:gameId/review/:revId" element={<SingleReview />} />
+            <Route path="GameReviews/:gameId/review/:revId/edit" element={<ReviewEditor />} />
+          </Routes>
+        </div>
       </Router>
-    </div>
+    </div >
   );
 }
 
