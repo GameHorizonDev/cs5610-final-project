@@ -17,49 +17,11 @@ interface Review {
     updatedAt: string;
 }
 
-interface ReviewFormProps {
-    review: Review | null;
-    onSubmit: (text: string, rating: number) => void;
-}
-// change review when user edits anything
-// const ReviewForm: React.FC<ReviewFormProps> = ({ review, onSubmit }) => {
-//     const [text, setText] = useState(review ? review.text : '');
-//     const [rating, setRating] = useState(review ? review.rating : 10);
+// interface ReviewFormProps {
+//     review: Review | null;
+//     onSubmit: (text: string, rating: number) => void;
+// }
 
-//     useEffect(() => {
-//         if (review) {
-//             setText(review.text);
-//             setRating(review.rating);
-//         }
-//     }, [review]);
-
-//     // construct the review object and send it to the server
-//     const handleSubmit = (e: React.FormEvent) => {
-//         e.preventDefault();
-//         onSubmit(text, rating);
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmit} style={{ textAlign: 'left' }}>
-//             <textarea
-//                 value={text}
-//                 onChange={(e) => setText(e.target.value)}
-//                 rows={3}
-//                 cols={50}
-//                 style={{ width: '100%', marginBottom: '1rem' }}
-//             />
-//             <div className="d-flex align-items-center mb-3">
-//                 <label className="me-2" htmlFor="rating">Rating:</label>
-//                 <StarRating rating={rating} onRatingChange={setRating} />
-//             </div>
-//             <div className="d-flex gap-2 ">
-//                 <button type="submit" className="btn btn-primary">
-//                     {review ? 'Update' : 'Submit'} Review
-//                 </button>
-//             </div>
-//         </form>
-//     );
-// };
 
 const ReviewEditor: React.FC = () => {
     const { gameId, revId } = useParams();
