@@ -22,9 +22,8 @@ const LoginPage: React.FC = () => {
             });
 
             console.log('Login response:', response.data);
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
-                navigate('/Homepage/HomePage');
+            if (response.status === 200) {
+                navigate('/home');
             }
         } catch (error: any) {
             setError(error.response?.data?.message || 'Error logging in');
