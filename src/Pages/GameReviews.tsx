@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import GameSummary from '../Components/GameSummary';
 import ReviewList from '../Components/ReviewList';
+import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 
 import { getGameData } from '../API/game';
 
@@ -19,6 +20,23 @@ const GameReviews: React.FC = () => {
         fetchGames();
     }, [gameId]);
 
+    const [profile, setProfile] = useState<any>(null);
+
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
+                const userData = response.data;
+                console.log("User data:", userData);
+                setProfile(userData);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        getUserData();
+    }, []);
+
 
 
     return (
@@ -28,10 +46,13 @@ const GameReviews: React.FC = () => {
                 <div className="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                     <h1>{gameData.title}'s Game Reviews</h1>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                        <Link to={`/GameReviews/${gameId}/review/new/edit`} className="btn btn-success ms-2">
+                        {profile && ["critic", "audience"].includes(profile.role) && (<Link to={`/GameReviews/${gameId}/review/new/edit`} className="btn btn-success ms-2">
                             Create a Review
-                        </Link>
+                        </Link>)}
                     </div>
+
+
+
                     <ReviewList gameData={gameData} reviews={gameData.reviews}></ReviewList>
 
                 </div>
