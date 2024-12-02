@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
+import StarRating from "../Components/StarRating";
 
 export default function BookmarkedReviews() {
     const [reviewData, setReviewData] = useState<any[]>([]);
@@ -42,26 +43,28 @@ export default function BookmarkedReviews() {
                 <p>No bookmarked reviews available.</p>
             ) : (
                 reviewData.map((review: any) => (
-                    <div className="card mb-3" key={review._id}>
+                    <div className="card mb-3">
                         <div className="card-body">
-                            <h5 className="card-title">Rating: {review.rating}</h5>
-                            <p className="card-text">{review.text}</p>
-                            <p><small>Reviewed by: {review.reviewerUsername}</small></p>
-                            <Link
-                                to={`#`}
-                                className="btn btn-primary mb-2"
-                            >
-                                View Review
-                            </Link>
-                            <button
-                                className="btn btn-danger"
-                                onClick={() => handleUnbookmark(review._id)}
-                            >
-                                Unbookmark
-                            </button>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                    <strong>{review.reviewerId?.username}</strong>
+                                    <div style={{ marginLeft: '10px' }}>
+                                        <StarRating rating={review.rating} />
+                                    </div>
+                                    <span style={{ marginLeft: 'auto', fontSize: '12px', color: 'gray' }}>
+                                        {new Date(review.createdAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <p>{review.text}</p>
+                                <button
+                                    className="btn btn-danger btn-sm"
+                                    onClick={() => handleUnbookmark(review._id)}
+                                >
+                                    Unbookmark
+                                </button>
+                            </div >
                         </div>
-                    </div>
-                ))
+                    </div>))
             )}
         </div>
     );
