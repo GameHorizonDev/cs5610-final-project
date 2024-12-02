@@ -64,6 +64,7 @@ const ProfilePage: React.FC = () => {
         </div>
       </div>
 
+    {(role === "critic" || role === "audience") && (
       <div className="profile-right">
         <div className="card">
           <h3 className="section-header">BOOKMARKED REVIEWS</h3>
@@ -74,6 +75,7 @@ const ProfilePage: React.FC = () => {
           <FavoritedGames />
         </div>
       </div>
+      )}
     </div>
   );
 };
