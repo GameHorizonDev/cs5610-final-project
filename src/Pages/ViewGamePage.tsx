@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 import { getCurrUserId } from "../API/user";
+import ReviewList from "../Components/ReviewList";
 
 export default function ViewGamePage() {
     const { gameId } = useParams();
@@ -35,7 +36,7 @@ export default function ViewGamePage() {
                     setIsFavorited(localResponse.data.favoritedBy?.includes(userId));
                 }
 
-                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
+                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}?amount=3`);
                 if (reviewResponse.status !== 200) {
                     gameData.reviews = [];
                 } else {
@@ -114,33 +115,25 @@ export default function ViewGamePage() {
                     <a href={gameData.game_url} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Play Now</a>
 
                     <button
-                        className="btn btn-outline-primary ms-2"
+                        className="btn btn-outline-primary ms-2 mt-2"
                         onClick={handleFavorite}
                     >
                         {isFavorited ? "Favorited" : "Add to Favorites"}
                     </button>
-                    <Link to={`#`} className="btn btn-success ms-2">
+                    <Link to={`#`} className="btn btn-success ms-2 mt-2">
                         Create a Review
                     </Link>
                 </div>
             </div>
 
             <h2 className="mb-4">User Reviews</h2>
-            {gameData.reviews.length === 0 ? (
-                <p>No reviews available.</p>
-            ) : (
-                gameData.reviews.map((review: any) => (
-                    <Link to={`/sandbox/gamereview`} className="text-decoration-none text-dark" key={review._id}>
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <h5 className="card-title">Rating: {review.rating}</h5>
-                                <p className="card-text">{review.text}</p>
-                                <p><small>Reviewed by: {review.reviewerId.username}</small></p>
-                            </div>
-                        </div>
-                    </Link>
-                ))
-            )}
+            <ReviewList gameData={gameData} reviews={gameData.reviews} />
+
+            <div className="text-center mt-4">
+                <Link to={`/GameReviews/${gameId}`} className="btn btn-primary">
+                    View All Reviews
+                </Link>
+            </div>
         </div>
     );
 }
