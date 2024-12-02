@@ -49,7 +49,7 @@ export default function BookmarkedReviews() {
                             <p><small>Reviewed by: {review.reviewerUsername}</small></p>
                             <Link
                                 to={`#`}
-                                className="btn btn-primary me-2"
+                                className="btn btn-primary mb-2"
                             >
                                 View Review
                             </Link>

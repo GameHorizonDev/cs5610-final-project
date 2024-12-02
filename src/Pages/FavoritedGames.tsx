@@ -62,7 +62,7 @@ export default function FavoritedGames() {
                                     <Link
                                         to={game.apiData.game_url}
                                         target="_blank"
-                                        className="btn btn-primary me-2"
+                                        className="btn btn-primary mb-2"
                                     >
                                         Play Now
                                     </Link>
