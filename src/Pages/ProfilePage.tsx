@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import BookmarkedReviews from "./BookmarkedReviews";
 import FavoritedGames from "./FavoritedGames";
 import "../ProfilePage.css";
+
 
 const ProfilePage: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ const ProfilePage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [roleInfo, setRoleInfo] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -39,6 +41,7 @@ const ProfilePage: React.FC = () => {
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to load profile.");
+        navigate("/login"); 
       }
     };
 
@@ -80,6 +83,7 @@ const ProfilePage: React.FC = () => {
         </div>
       </div>
 
+    {(role === "critic" || role === "audience") && (
       <div className="profile-right">
         <div className="card">
           <h3 className="section-header">BOOKMARKED REVIEWS</h3>
@@ -90,6 +94,7 @@ const ProfilePage: React.FC = () => {
           <FavoritedGames />
         </div>
       </div>
+      )}
     </div>
   );
 };
