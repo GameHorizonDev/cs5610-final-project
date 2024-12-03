@@ -27,7 +27,7 @@ export default function BookmarkedReviews({ userId = "" }: { userId?: String }) 
         };
 
         getUserData();
-    }, []);
+    }, [userId]);
 
     const handleUnbookmark = async (reviewId: string) => {
         try {

@@ -26,7 +26,7 @@ export default function FavoritedGames({ userId = "" }: { userId?: String }) {
         };
 
         getUserData();
-    }, []);
+    }, [userId]);
 
     const handleUnfavorite = async (gameId: string) => {
         try {
