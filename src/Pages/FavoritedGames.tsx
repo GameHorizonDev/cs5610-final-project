@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 
-export default function FavoritedGames() {
+export default function FavoritedGames({ userId = "" }: { userId?: String }) {
     const [gameData, setGameData] = useState<any[]>([]);
 
     useEffect(() => {
         const getUserData = async () => {
             try {
-                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
+                let ext = "";
+                if (userId && userId !== "") {
+                    ext = `/${userId}`;
+                }
+                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile${ext}`);
                 const userData = response.data;
                 for (const fg of userData.favoriteGames) {
                     const apiData = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${fg.gameId}`);
@@ -22,7 +26,7 @@ export default function FavoritedGames() {
         };
 
         getUserData();
-    }, []);
+    }, [userId]);
 
     const handleUnfavorite = async (gameId: string) => {
         try {

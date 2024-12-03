@@ -4,6 +4,14 @@ import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 
 export default function ReviewBody({ gameData, review }: any) {
+    let type;
+    if (review.reviewerId.role === "critic") {
+        type = 'Critic Review';
+    } else if (review.reviewerId.role === 'audience') {
+        type = 'Audience Review';
+    } else {
+        type = "Review";
+    }
     return (
 
         <div className="card mb-3">
@@ -16,9 +24,16 @@ export default function ReviewBody({ gameData, review }: any) {
                         <div style={{ marginLeft: '10px' }}>
                             <StarRating rating={review.rating} />
                         </div>
-                        <span style={{ marginLeft: 'auto', fontSize: '12px', color: 'gray' }}>
-                            {new Date(review.createdAt).toLocaleDateString()}
-                        </span>
+                        <div style={{ marginLeft: 'auto' }}>
+                            <span style={{ fontSize: '12px', color: 'gray' }}>
+                                {new Date(review.createdAt).toLocaleDateString()}
+                            </span>
+                            <br />
+                            <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'gray' }}>
+                                {type}
+                            </span>
+                        </div>
+
                     </div>
                     <p>{review.text}</p>
                 </div >

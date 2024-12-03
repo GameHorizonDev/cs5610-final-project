@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 import { getCurrUserId } from "../API/user";
 import ReviewList from "../Components/ReviewList";
+import StarRating from "../Components/StarRating";
 
 export default function ViewGamePage() {
     const { gameId } = useParams();
     const [gameData, setGameData] = useState<{ [key: string]: any }>({});
     const [isFavorited, setIsFavorited] = useState(false);
     const [userId, setUserId] = useState("");
+    const [avgCriticScore, setAvgCriticScore] = useState(0);
+    const [avgAudienceScore, setAvgAudienceScore] = useState(0);
 
     useEffect(() => {
         const setServerId = async () => {
@@ -38,11 +41,26 @@ export default function ViewGamePage() {
                     setIsFavorited(localResponse.data.favoritedBy?.includes(userId));
                 }
 
-                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}?amount=3`);
+                const reviewResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/all/by-game-id/${gameId}`);
                 if (reviewResponse.status !== 200) {
                     gameData.reviews = [];
                 } else {
-                    gameData.reviews = reviewResponse.data;
+                    let criticTotal = 0;
+                    let criticSum = 0;
+                    let audTotal = 0;
+                    let audSum = 0;
+                    for (const avgReview of reviewResponse.data) {
+                        if (avgReview.reviewerId.role === 'audience') {
+                            audTotal += 1;
+                            audSum += avgReview.rating;
+                        } else if (avgReview.reviewerId.role === 'critic') {
+                            criticTotal += 1;
+                            criticSum += avgReview.rating;
+                        }
+                    }
+                    setAvgAudienceScore(audSum / audTotal);
+                    setAvgCriticScore(criticSum / criticTotal);
+                    gameData.reviews = reviewResponse.data.slice(0, 3);
                 }
 
                 setGameData(gameData);
@@ -114,7 +132,18 @@ export default function ViewGamePage() {
                     <p><strong>Release Date:</strong> {gameData.release_date}</p>
                     <p><strong>Favorites:</strong> {gameData.localGameData?.favoritedBy?.length || 0}</p>
                     <p className="card-text">{gameData.short_description}</p>
-                    <a href={gameData.game_url} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Play Now</a>
+                    <div className="mt-4">
+                        <h5>Average Critic Score:</h5>
+                        <div className="d-flex justify-content-center">
+                            <StarRating rating={avgCriticScore} />
+                        </div>
+                    </div>
+                    <div className="mt-2">
+                        <h5>Average Audience Score:</h5>
+                        <div className="d-flex justify-content-center">
+                            <StarRating rating={avgAudienceScore} />
+                        </div>                    </div>
+                    <a href={gameData.game_url} className="btn btn-primary mt-4" target="_blank" rel="noopener noreferrer">Play Now</a>
 
                     <button
                         className="btn btn-outline-primary ms-2 mt-2"

@@ -31,7 +31,8 @@ function App() {
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/sandbox/api/example" element={<Example />} />
             <Route path="/sandbox/*" element={<Sandbox />} />
-            <Route path="/search-results/:search_query?" element={<SearchResultPage />} />
+            <Route path="/search-results/:search_query?" element={<SearchResultPage header={"Search Results for Games"} />} />
+            <Route path="/view-game/default" element={<SearchResultPage limit={5} header={"5 Random Games"} />} />
             <Route path="/view-game/:gameId" element={<ViewGamePage />} />
             <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
             <Route path='/profile/favorite-games' element={<FavoritedGames />} />
