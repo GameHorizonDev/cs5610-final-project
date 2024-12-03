@@ -43,11 +43,13 @@ export default function BookmarkedReviews() {
                 <p>No bookmarked reviews available.</p>
             ) : (
                 reviewData.map((review: any) => (
-                    <div className="card mb-3">
+                    <div className="card mb-3" key={review._id}>
                         <div className="card-body">
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                    <strong>{review.reviewerId?.username}</strong>
+                                    <Link to={`/profile/${review.reviewerId}`} className="text-decoration-none">
+                                        <strong>{review.reviewerUsername}</strong>
+                                    </Link>
                                     <div style={{ marginLeft: '10px' }}>
                                         <StarRating rating={review.rating} />
                                     </div>
@@ -62,9 +64,10 @@ export default function BookmarkedReviews() {
                                 >
                                     Unbookmark
                                 </button>
-                            </div >
+                            </div>
                         </div>
-                    </div>))
+                    </div>
+                ))
             )}
         </div>
     );

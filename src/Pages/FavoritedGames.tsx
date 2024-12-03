@@ -54,7 +54,11 @@ export default function FavoritedGames() {
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">
-                                    <h5 className="card-title">{game.apiData.title}</h5>
+                                    <h5 className="card-title">
+                                        <Link to={`/view-game/${game.gameId}`} className="text-decoration-none">
+                                            {game.apiData.title}
+                                        </Link>
+                                    </h5>
                                     <p className="card-text">{game.apiData.short_description}</p>
                                     <p className="card-text">
                                         <small className="text-muted">{game.apiData.genre} - {game.apiData.platform}</small>
