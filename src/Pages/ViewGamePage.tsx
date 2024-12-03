@@ -21,9 +21,11 @@ export default function ViewGamePage() {
     useEffect(() => {
         const getGameData = async () => {
             try {
+                // Getting API data
                 const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${gameId}`);
                 const gameData = response.data;
 
+                // Getting Mongoose data for the game
                 const localResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/game/view/${gameId}`, {
                     validateStatus: function (status) {
                         return status < 500;
