@@ -3,13 +3,17 @@ import { useState, useEffect } from "react";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 import StarRating from "../Components/StarRating";
 
-export default function BookmarkedReviews() {
+export default function BookmarkedReviews({ userId = "" }: { userId?: String }) {
     const [reviewData, setReviewData] = useState<any[]>([]);
 
     useEffect(() => {
         const getUserData = async () => {
             try {
-                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
+                let ext = "";
+                if (userId && userId !== "") {
+                    ext = `/${userId}`;
+                }
+                const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile${ext}`);
                 const userData = response.data;
                 for (const br of userData.bookmarkedReviews) {
                     const brResponse = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile/${br.reviewerId}`);
