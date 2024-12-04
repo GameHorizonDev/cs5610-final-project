@@ -15,6 +15,7 @@ import FavoritedGames from './Pages/FavoritedGames';
 import GameReview from './Pages/GameReviews';
 import SingleReview from './Pages/SingleReview';
 import ReviewEditor from './Pages/ReviewEditor';
+import UserProfilePage from './Pages/UserProfilePage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:profileId" element={<UserProfilePage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/sandbox/api/example" element={<Example />} />
             <Route path="/sandbox/*" element={<Sandbox />} />
