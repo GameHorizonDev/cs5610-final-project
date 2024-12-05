@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaRegCommentDots, FaRegCircleUser } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
-import { FaRegBookmark, FaStar } from "react-icons/fa";
+import { FaRegBookmark, FaStar, FaSearch } from "react-icons/fa";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 
 import "./styles.css";
@@ -11,6 +12,7 @@ import TrendingMovies from "./TrendingMovies";
 import TrendingCritics from "./TrendingCritics";
 // import * as userAPI from "../API/user";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
+import SearchResultPage from "../Pages/SearchResultPage"
 
 const HomePage: React.FC = () => {
     // Check to see if a user logged in or not
@@ -19,6 +21,10 @@ const HomePage: React.FC = () => {
     const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
     const [allUserReviews, setAllUserReviews] = useState<any[]>([]);
+    const navigate = useNavigate();
+
+    const [searchTerm, setSearchTerm] = useState('');
+
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -61,10 +67,38 @@ const HomePage: React.FC = () => {
         fetchProfile();
     }, []);
 
+    // For Search bar
+    const saveSearchTerm = (searchTerm: string) => {
+        setSearchTerm(searchTerm);
+    }
+
+    const handleGameSearch = (queryString: string) => {
+        navigate(`/search-results/${queryString}`);
+        // Create an SPA for when clicking on the +Assignment button
+        <Routes>
+            <Route path="/search-results/:search_query?" element={<SearchResultPage header={"Search Results for Games"} />} />
+        </Routes>
+    }
 
     // console.log(getCurrUserInfo)
     return (
         <div id="sm-homepage" className="body-white body-homepage">
+            {/* Search Bar */}
+            <div className="sm-search-bar-container">
+                {/* <span className="input-group-text"></span> */}
+                <div id="search-bar" className="mb-3">
+                    <input
+                        placeholder="Search a game"
+                        className="form-control float-start w-25 me-2 sm-game-search-bar"
+                        onChange={(e) => { saveSearchTerm(e.target.value) }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") { handleGameSearch(searchTerm) }
+                        }}
+                    />
+                    <button><FaSearch size={16} /></button>
+                </div>
+            </div>
+
             {/* Make the trendingNow section fixed to the right side of the div */}
             {/* <div id="sm-trending-section" className="d-none d-sm-block float-end me-4">
                 <TrendingMovies />
@@ -100,14 +134,17 @@ const HomePage: React.FC = () => {
                                     <p className="text-start">{userReview.text}</p>
                                 </div>
 
-                                <button>Read more...</button>
+                                <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
+                                    className="text-decoration-none">
+                                    <button> Read more... </button>
+                                </Link>
+
 
 
 
                                 {/* Clicking the comment icon will lead you to the post */}
                                 <div className="d-flex bd-highlight mb-3">
                                     <div className="m-2 p-2 bd-highlight"><FcLike /></div>
-                                    <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
                                     <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
                                 </div>
                             </div>
@@ -134,7 +171,10 @@ const HomePage: React.FC = () => {
                                 </div>
 
                                 {/* When click on read more, go navigate into the review */}
-                                <button>Read more...</button>
+                                <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
+                                    className="text-decoration-none">
+                                    <button> Read more... </button>
+                                </Link>
 
 
 
@@ -142,7 +182,6 @@ const HomePage: React.FC = () => {
                                 {/* Will have to rework these icon: Add or remove */}
                                 <div className="d-flex bd-highlight mb-3">
                                     <div className="m-2 p-2 bd-highlight"><FcLike /></div>
-                                    <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
                                     <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
                                 </div>
                             </div>
@@ -175,16 +214,28 @@ const HomePage: React.FC = () => {
                                 </div>
 
                                 {/* When click on read more, go navigate into the review */}
-                                <button>Read more...</button>
+                                <Link to={`/login`}
+                                    className="text-decoration-none">
+                                    <button> Read more... </button>
+                                </Link>
 
 
 
                                 {/* Clicking the comment icon will lead you to the post */}
                                 {/* Will have to rework these icon: Add or remove */}
                                 <div className="d-flex bd-highlight mb-3">
-                                    <div className="m-2 p-2 bd-highlight"><FcLike /></div>
-                                    <div className="m-2 p-2 bd-highlight"><FaRegCommentDots /></div>
-                                    <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
+                                    <div className="m-2 p-2 bd-highlight">
+                                        <Link to={`/login`}
+                                            className="text-white">
+                                            <FcLike />
+                                        </Link>
+                                    </div>
+                                    <div className="ms-auto m-2 p-2 bd-highlight">
+                                        <Link to={`/login`}
+                                            className="text-white">
+                                            <FaRegBookmark />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         ))}
