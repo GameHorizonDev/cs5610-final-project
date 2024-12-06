@@ -3,6 +3,7 @@ import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 import { useNavigate, Link } from "react-router-dom";
 import BookmarkedReviews from "./BookmarkedReviews";
 import FavoritedGames from "./FavoritedGames";
+import UsersAdmin from "./UsersAdmin";
 import "../ProfilePage.css";
 
 
@@ -32,21 +33,21 @@ const ProfilePage: React.FC = () => {
         } else if (role === "critic") {
           let criticRoleString;
           if (response.data.isFeaturedCritic) {
-            criticRoleString = "Featured Critic!";
+            criticRoleString = "Congrats, you are a featured Critic!";
           } else {
-            criticRoleString = "Not a featured critic.";
+            criticRoleString = "Sorry, you are not a featured critic.";
           }
           setRoleInfo(criticRoleString)
         }
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to load profile.");
-        navigate("/login"); 
+        navigate("/login");
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
 
   if (error) {
@@ -83,17 +84,26 @@ const ProfilePage: React.FC = () => {
         </div>
       </div>
 
-    {(role === "critic" || role === "audience") && (
-      <div className="profile-right">
-        <div className="card">
-          <h3 className="section-header">BOOKMARKED REVIEWS</h3>
-          <BookmarkedReviews />
+      {(role === "critic" || role === "audience") && (
+        <div className="profile-right">
+          <div className="card">
+            <h3 className="section-header">BOOKMARKED REVIEWS</h3>
+            <BookmarkedReviews />
+          </div>
+          <div className="card">
+            <h3 className="section-header">FAVORITED GAMES</h3>
+            <FavoritedGames />
+          </div>
         </div>
-        <div className="card">
-          <h3 className="section-header">FAVORITED GAMES</h3>
-          <FavoritedGames />
+      )}
+
+      {role === "admin" && (
+        <div className="profile-right">
+          <div className="card">
+            <h3 className="section-header">ALL USERS</h3>
+            <UsersAdmin />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

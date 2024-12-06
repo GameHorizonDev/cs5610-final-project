@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
-import { getCurrUserId } from "../API/user";
+import { getCurrProfile } from "../API/user";
 import ReviewList from "../Components/ReviewList";
 import StarRating from "../Components/StarRating";
 
@@ -12,13 +12,15 @@ export default function ViewGamePage() {
     const [userId, setUserId] = useState("");
     const [avgCriticScore, setAvgCriticScore] = useState(0);
     const [avgAudienceScore, setAvgAudienceScore] = useState(0);
+    const [role, setRole] = useState("");
 
     useEffect(() => {
-        const setServerId = async () => {
-            const serverUserId = await getCurrUserId();
-            setUserId(serverUserId);
+        const setUserData = async () => {
+            const profile = await getCurrProfile();
+            setUserId(profile._id);
+            setRole(profile.role);
         }
-        setServerId();
+        setUserData();
     }, [])
 
     useEffect(() => {
@@ -145,15 +147,20 @@ export default function ViewGamePage() {
                         </div>                    </div>
                     <a href={gameData.game_url} className="btn btn-primary mt-4" target="_blank" rel="noopener noreferrer">Play Now</a>
 
-                    <button
-                        className="btn btn-outline-primary ms-2 mt-2"
-                        onClick={handleFavorite}
-                    >
-                        {isFavorited ? "Favorited" : "Add to Favorites"}
-                    </button>
-                    <Link to={`#`} className="btn btn-success ms-2 mt-2">
-                        Create a Review
-                    </Link>
+                    {role !== 'admin' && (
+                        <>
+                            <button
+                                className="btn btn-outline-primary ms-2 mt-2"
+                                onClick={handleFavorite}
+                            >
+                                {isFavorited ? "Favorited" : "Add to Favorites"}
+                            </button>
+                            <Link to={`/GameReviews/${gameData.id}/review/new/edit`} className="btn btn-success ms-2 mt-2">
+                                Create a Review
+                            </Link>
+                        </>
+                    )}
+
                 </div>
             </div>
 
