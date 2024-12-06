@@ -6,7 +6,7 @@ const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [role, setRole] = useState<'User' | 'Admin'>('User');
+    const [role, setRole] = useState<'Critic' | 'Audience'>('Critic'); // Default role
     const navigate = useNavigate();
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -36,7 +36,6 @@ const RegisterPage: React.FC = () => {
             alert('An error occurred. Please try again.');
         }
     };
-
 
     return (
         <div className={styles.container}>
@@ -80,21 +79,21 @@ const RegisterPage: React.FC = () => {
                                 <input
                                     type="radio"
                                     name="role"
-                                    value="User"
-                                    checked={role === 'User'}
-                                    onChange={() => setRole('User')}
+                                    value="Critic"
+                                    checked={role === 'Critic'}
+                                    onChange={() => setRole('Critic')}
                                 />
-                                User
+                                Critic
                             </div>
                             <div className={styles['role-option']}>
                                 <input
                                     type="radio"
                                     name="role"
-                                    value="Admin"
-                                    checked={role === 'Admin'}
-                                    onChange={() => setRole('Admin')}
+                                    value="Audience"
+                                    checked={role === 'Audience'}
+                                    onChange={() => setRole('Audience')}
                                 />
-                                Admin
+                                Audience
                             </div>
                         </div>
                     </div>

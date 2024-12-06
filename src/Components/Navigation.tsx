@@ -6,14 +6,23 @@ import { MdRateReview } from "react-icons/md";
 
 export default function Navigation() {
     const { pathname } = useLocation();
+    const isLoggedIn = false;
 
-    const links = [
-        { label: "Home", path: "/home", icon: AiOutlineHome },
+    const guestLinks = [
         { label: "Login", path: "/login", icon: FaSignInAlt },
         { label: "Register", path: "/register", icon: FaUserPlus },
+    ];
+
+    const authLinks = [
         { label: "Profile", path: "/profile", icon: FaUserCircle },
+    ];
+
+    const commonLinks = [
+        { label: "Home", path: "/home", icon: AiOutlineHome },
         { label: "Game Reviews", path: "/view-game/default", icon: MdRateReview },
     ];
+
+    const links = isLoggedIn ? [...commonLinks, ...authLinks] : [...commonLinks, ...guestLinks];
 
     return (
         <div
@@ -52,7 +61,10 @@ export default function Navigation() {
                     to={link.path}
                     className={`list-group-item bg-dark text-center border-0 ${pathname === link.path ? "text-danger bg-white" : "text-white"
                         }`}
-                    style={{ padding: "20px 0", textDecoration: "none", }}
+                    style={{
+                        padding: "20px 0",
+                        textDecoration: "none",
+                    }}
                 >
                     {link.icon({
                         className: `fs-1 ${pathname === link.path ? "text-danger" : "text-white"
