@@ -11,4 +11,14 @@ const getCurrUserId = async () => {
     }
 };
 
-export { getCurrUserId };
+const getCurrProfile = async () => {
+    try {
+        const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching curr profile:", error);
+        return undefined;
+    }
+};
+
+export { getCurrUserId, getCurrProfile };

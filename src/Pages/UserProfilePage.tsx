@@ -8,7 +8,6 @@ import "../ProfilePage.css";
 const UserProfilePage: React.FC = () => {
   const { profileId } = useParams<{ profileId: string }>();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [roleInfo, setRoleInfo] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -17,15 +16,10 @@ const UserProfilePage: React.FC = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/profile/${profileId}`);
-        const { username, email, role } = response.data;
+        const { username, role } = response.data;
         setUsername(username);
-        setEmail(email);
         setRole(role);
-        if (role === "admin") {
-          setRoleInfo(`Admin permissions: ${response.data.adminPermissions}`);
-        } else if (role === "audience") {
-          setRoleInfo(`Membership level: ${response.data.membershipLevel}`);
-        } else if (role === "critic") {
+        if (role === "critic") {
           setRoleInfo(response.data.isFeaturedCritic ? "Featured Critic!" : "Not a featured critic.");
         }
       } catch (error) {
@@ -51,9 +45,8 @@ const UserProfilePage: React.FC = () => {
           </div>
           <div>
             <h4 className="username">{username}</h4>
-            <p className="email">{email}</p>
             <p className="role">{role}</p>
-            <p className="roleInfo">{roleInfo}</p>
+            {roleInfo && <p className="roleInfo">{roleInfo}</p>}
           </div>
         </div>
       </div>
