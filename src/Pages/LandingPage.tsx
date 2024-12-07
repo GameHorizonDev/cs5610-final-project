@@ -22,7 +22,7 @@ function LandingPage() {
                     <h2 className="card-title mb-3">Team Members</h2>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Angelo Cataldo - Section 2</li>
-                        <li className="list-group-item">Dong Cheng - Section 2</li>
+                        <li className="list-group-item">Dong Chen - Section 2</li>
                         <li className="list-group-item">Quang Nguyen - Section 2</li>
                         <li className="list-group-item">Sizhu Qu - Section 2</li>
                         <li className="list-group-item">Yanling Peng - Section 3</li>

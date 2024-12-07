@@ -44,16 +44,20 @@ const GameReviews: React.FC = () => {
 
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
-                    <h1>{gameData.title}'s Game Reviews</h1>
+                    <h1>{gameData?.title ? `${gameData.title}'s Game Reviews` : 'No Game Reviews Available'}</h1>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                        {profile && ["critic", "audience"].includes(profile.role) && (<Link to={`/GameReviews/${gameId}/review/new/edit`} className="btn btn-success ms-2">
-                            Create a Review
-                        </Link>)}
+                        {profile && ["critic", "audience"].includes(profile.role) && gameData && (
+                            <Link to={`/GameReviews/${gameId}/review/new/edit`} className="btn btn-success ms-2">
+                                Create a Review
+                            </Link>
+                        )}
                     </div>
 
-
-
-                    <ReviewList gameData={gameData} reviews={gameData.reviews}></ReviewList>
+                    {gameData?.reviews && gameData.reviews.length > 0 ? (
+                        <ReviewList gameData={gameData} reviews={gameData.reviews}></ReviewList>
+                    ) : (
+                        <p>No reviews available for this game.</p>
+                    )}
 
                 </div>
                 <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
