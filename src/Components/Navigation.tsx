@@ -48,7 +48,6 @@ export default function Navigation() {
                 top: 0,
                 left: 0,
                 height: "100vh",
-                overflowY: "auto",
                 backgroundColor: "#212529",
             }}
             className="list-group rounded-0"
