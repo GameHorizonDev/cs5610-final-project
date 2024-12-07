@@ -6,7 +6,8 @@ const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [role, setRole] = useState<'Critic' | 'Audience'>('Critic'); // Default role
+    const [role, setRole] = useState<'Critic' | 'Audience'>('Critic'); // Default role for Users
+    const [isAdmin, setIsAdmin] = useState(false); // Determines if the user is Admin
     const navigate = useNavigate();
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -15,11 +16,14 @@ const RegisterPage: React.FC = () => {
             alert('Passwords do not match!');
             return;
         }
+
+        const finalRole = isAdmin ? 'Admin' : role;
+
         try {
             const response = await fetch('http://localhost:5000/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, role }),
+                body: JSON.stringify({ email, password, role: finalRole }),
             });
 
             if (!response.ok) {
@@ -28,7 +32,7 @@ const RegisterPage: React.FC = () => {
                 return;
             }
 
-            console.log('Registering with:', { email, password, role });
+            console.log('Registering with:', { email, password, role: finalRole });
             alert('Registration successful!');
             navigate('/profile');
         } catch (error) {
@@ -72,31 +76,47 @@ const RegisterPage: React.FC = () => {
                             required
                         />
                     </div>
-                    <div className={styles['form-group']}>
-                        <label>Role:</label>
-                        <div className={styles['role-container']}>
-                            <div className={styles['role-option']}>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    value="Critic"
-                                    checked={role === 'Critic'}
-                                    onChange={() => setRole('Critic')}
-                                />
-                                Critic
-                            </div>
-                            <div className={styles['role-option']}>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    value="Audience"
-                                    checked={role === 'Audience'}
-                                    onChange={() => setRole('Audience')}
-                                />
-                                Audience
+                    {/* Role Selection for Users */}
+                    {!isAdmin && (
+                        <div className={styles['form-group']}>
+                            <label>Role:</label>
+                            <div className={styles['role-container']}>
+                                <div className={styles['role-option']}>
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value="Critic"
+                                        checked={role === 'Critic'}
+                                        onChange={() => setRole('Critic')}
+                                    />
+                                    Critic
+                                </div>
+                                <div className={styles['role-option']}>
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value="Audience"
+                                        checked={role === 'Audience'}
+                                        onChange={() => setRole('Audience')}
+                                    />
+                                    Audience
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
+                    {/* Admin Role is fixed and cannot be chosen */}
+                    {isAdmin && (
+                        <div className={styles['form-group']}>
+                            <label>Role:</label>
+                            <input
+                                type="text"
+                                value="Admin"
+                                disabled
+                                className="form-control"
+                                style={{ fontWeight: 'bold', color: 'red' }}
+                            />
+                        </div>
+                    )}
                     <button type="submit">Register</button>
                 </form>
             </div>
