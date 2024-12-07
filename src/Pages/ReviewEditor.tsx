@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getGameData } from '../API/game';
 import GameSummary from '../Components/GameSummary';
 import StarRating from '../Components/StarRating';
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
+import { getCurrProfile } from '../API/user';
 
 interface Review {
     _id: string;
@@ -28,6 +29,19 @@ const ReviewEditor: React.FC = () => {
     const [gameData, setGameData] = useState<{ [key: string]: any }>({ reviews: [] });
 
     const [editingReview, setEditingReview] = useState<Review | null>(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkRole = async () => {
+            const userProfile = await getCurrProfile();
+            if (!userProfile || userProfile.role === 'admin') {
+                navigate('/home')
+                return;
+            }
+        }
+        checkRole();
+    }, [navigate])
 
     const fetchGames = async () => {
         const game = await getGameData(gameId ? { gameId } : { gameId: '' });
