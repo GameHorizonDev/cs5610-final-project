@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
-import { FaSignInAlt, FaUserPlus, FaUserCircle } from "react-icons/fa";
+import { FaSignInAlt, FaUserPlus, FaUserCircle, FaInfoCircle } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
 import { getCurrUserId } from "../API/user";
 import { useState, useEffect } from "react";
@@ -37,7 +37,12 @@ export default function Navigation() {
         { label: "Game Reviews", path: "/view-game/default", icon: MdRateReview },
     ];
 
-    const links = isLoggedIn ? [...commonLinks, ...authLinks] : [...commonLinks, ...guestLinks];
+    const endingLinks = [
+        { label: "Landing Page", path: "/landing", icon: FaInfoCircle }
+    ]
+
+    let links = isLoggedIn ? [...commonLinks, ...authLinks] : [...commonLinks, ...guestLinks];
+    links = [...links, ...endingLinks]
 
     return (
         <div

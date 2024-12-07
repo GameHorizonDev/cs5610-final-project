@@ -16,6 +16,7 @@ import GameReview from './Pages/GameReviews';
 import SingleReview from './Pages/SingleReview';
 import ReviewEditor from './Pages/ReviewEditor';
 import UserProfilePage from './Pages/UserProfilePage';
+import LandingPage from './Pages/LandingPage';
 
 function App() {
   return (
@@ -38,9 +39,10 @@ function App() {
             <Route path="/view-game/:gameId" element={<ViewGamePage />} />
             <Route path='/profile/bookmarked-reviews' element={<BookmarkedReviews />} />
             <Route path='/profile/favorite-games' element={<FavoritedGames />} />
-            <Route path="GameReviews/:gameId" element={<GameReview />} />
-            <Route path="GameReviews/:gameId/review/:revId" element={<SingleReview />} />
-            <Route path="GameReviews/:gameId/review/:revId/edit" element={<ReviewEditor />} />
+            <Route path="/GameReviews/:gameId" element={<GameReview />} />
+            <Route path="/GameReviews/:gameId/review/:revId" element={<SingleReview />} />
+            <Route path="/GameReviews/:gameId/review/:revId/edit" element={<ReviewEditor />} />
+            <Route path='/landing' element={<LandingPage />} />
           </Routes>
         </div>
       </Router>

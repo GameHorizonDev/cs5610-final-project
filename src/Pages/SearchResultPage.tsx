@@ -55,8 +55,12 @@ export default function SearchResultPage({ limit = -1, header }: { header: Strin
         };
         const fetchGames = async () => {
             setLoading(true);
-            const games = await getGamesBySubStringTitle(search_query || '');
-            setFoundGames(games);
+            try {
+                const games = await getGamesBySubStringTitle(search_query || '');
+                setFoundGames(games);
+            } catch {
+                setFoundGames([]);
+            }
             setLoading(false);
         };
         fetchGames();
