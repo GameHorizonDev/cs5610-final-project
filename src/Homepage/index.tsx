@@ -8,9 +8,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 
 
 import "./styles.css";
-import TrendingMovies from "./TrendingMovies";
-import TrendingCritics from "./TrendingCritics";
-// import * as userAPI from "../API/user";
 import { SERVER_BASE_URL, APP_AXIOS } from "../API/apiConfig";
 import SearchResultPage from "../Pages/SearchResultPage"
 
@@ -35,29 +32,33 @@ const HomePage: React.FC = () => {
                 console.log("User profile info:", response.data)
                 setIsLoggedIn(true)
                 const { reviews, username, _id } = response.data;
+                // 
+                for (const ag of reviews) {
+                    // console.log(ag)
+                    const apiData = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${ag.gameId}`);
+                    ag.apiGameTitle = apiData.data.title;
+                    ag.apiGameData = apiData.data;
+                }
+                // console.log(reviews)
                 setUserReviews(reviews)
                 setUsername(username);
                 setUserId(_id);
-                console.log("Logged in: ", isLoggedIn)
-                console.log("User Reviews: ", reviews)
-                console.log("User ID: ", _id)
-                // const { username, email, role, password } = response.data;
-                // setEmail(email);
-                // setRole(role);
-                // setPassword(password);
             } catch (error) {
                 console.error("Error fetching profile:", error);
-                // setisLoggedIn(false)
-                // console.log("Logged in: ", isLoggedIn)
-                // setError("Failed to load profile.");
             }
         };
 
         const fetchAllReviews = async () => {
             try {
                 const response = await APP_AXIOS.get(`${SERVER_BASE_URL}/review/get-all/-1`);
-                setAllUserReviews(response.data)
-                console.log("All reviews: ", response.data)
+                const reviewData = response.data
+                for (const ag of reviewData) {
+                    // console.log(ag)
+                    const apiData = await APP_AXIOS.get(`${SERVER_BASE_URL}/games-api/byId/${ag.gameId}`);
+                    ag.apiGameTitle = apiData.data.title;
+                    ag.apiGameData = apiData.data;
+                }
+                setAllUserReviews(reviewData)
             } catch (error) {
                 console.error("Error fetching reviews:", error);
             }
@@ -80,13 +81,12 @@ const HomePage: React.FC = () => {
         </Routes>
     }
 
-    // console.log(getCurrUserInfo)
+    console.log(userReviews);
     return (
-        <div id="sm-homepage" className="body-white body-homepage">
+        <div id="sm-homepage" className="body-homepage">
             {/* Search Bar */}
             <div className="sm-search-bar-container">
-                {/* <span className="input-group-text"></span> */}
-                <div id="search-bar" className="mb-3">
+                <div id="sm-search-bar">
                     <input
                         placeholder="Search a game"
                         className="form-control float-start w-25 me-2 sm-game-search-bar"
@@ -95,16 +95,11 @@ const HomePage: React.FC = () => {
                             if (e.key === "Enter") { handleGameSearch(searchTerm) }
                         }}
                     />
-                    <button><FaSearch size={16} /></button>
+                    <button id="sm-search-button">
+                        <FaSearch size={16} />
+                    </button>
                 </div>
             </div>
-
-            {/* Make the trendingNow section fixed to the right side of the div */}
-            {/* <div id="sm-trending-section" className="d-none d-sm-block float-end me-4">
-                <TrendingMovies />
-                <TrendingCritics />
-            </div> */}
-
 
             <div id="sm-post-boundary">
                 {/* If the user logged in, display some of their recent review post at the top, then follow up by recently reviews */}
@@ -112,79 +107,94 @@ const HomePage: React.FC = () => {
 
                 {/* This only display when there is a user logged in*/}
                 {isLoggedIn && (
-                    // Sample post #1
                     <div>
-                        {userReviews.map((userReview) => (
-                            <div id="sm-sample-post" className="border border-danger">
-                                <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                                    <FaRegCircleUser />
-                                    <span className="d-inline-flex ms-1">
-                                        <p> {username} <b>posted</b> a review for <b>{userReview.gameId}(find game by game id)</b> <span>&#183;</span> {userReview.rating} </p>
-                                    </span> <br />
-                                </div>
+                        {/* Display the first 3 post made by the users if there is any*/}
+                        {userReviews.length !== 0 && (
+                            <div>
+                                <h1 className="text-start"> Users Reviews </h1> <hr />
+                                {userReviews.slice(0, 3).map((userReview) => (
+                                    <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`} className="text-decoration-none text-dark">
+                                        <div id="sm-users-post" className="mb-3">
 
-                                {/* This is what the reviewer writes */}
-                                <div id="sm-reviewer-text" className="d-flex align-items-start ms-3 me-3"
-                                    style={{
-                                        WebkitLineClamp: 3,
-                                        WebkitBoxOrient: 'vertical',
-                                        overflow: 'hidden',
-                                        display: '-webkit-box'
-                                    }}>
-                                    <p className="text-start">{userReview.text}</p>
-                                </div>
+                                            <div className="d-flex align-items-start ms-3 me-3 pt-4">
+                                                <FaRegCircleUser size={32} />
+                                                <span className="d-inline-flex ms-1">
+                                                    <p> {username} <b>posted</b> a review for <b>{userReview.apiGameTitle}</b> <span>&#183;</span> {userReview.rating / 2} <FaStar /></p>
+                                                </span> <br />
+                                            </div>
 
-                                <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
-                                    className="text-decoration-none">
-                                    <button> Read more... </button>
-                                </Link>
+                                            {/* This is what the reviewer writes */}
+                                            <div id="sm-reviewer-text" className="d-flex align-items-start flex-column ms-3 me-3"
+                                                style={{
+                                                    WebkitLineClamp: 3,
+                                                    WebkitBoxOrient: 'vertical',
+                                                    overflow: 'hidden',
+                                                    display: '-webkit-box'
+                                                }}>
+                                                <div className="text-start p-2">{userReview.text}</div>
+                                            </div>
+                                            <div className="d-flex align-items-center p-2">
+                                                <img src={userReview.apiGameData.thumbnail} alt={userReview.apiGameTitle} style={{ marginBottom: '20px' }} className="img-fluid rounded mx-auto d-block" />
+                                            </div>
 
+                                            <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
+                                                className="text-decoration-none text-dark">
+                                                <button id="sm-read-more-button"> Read more... </button>
+                                            </Link>
 
-
-
-                                {/* Clicking the comment icon will lead you to the post */}
-                                <div className="d-flex bd-highlight mb-3">
-                                    <div className="m-2 p-2 bd-highlight"><FcLike /></div>
-                                    <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
-                                </div>
+                                        </div>
+                                    </Link>
+                                ))}
                             </div>
-                        ))}
+                        )}
 
+                        {/* If there are no users reviews, redirect them to a review page */}
+                        {userReviews.length === 0 && (
+                            <div>
+                                <Link to={`/view-game/default`}
+                                    className="text-decoration-none text-dark">
+                                    <button>
+                                        Check out some games to review!
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Display the whatever is left in the review database */}
+                        <h1 className="text-start pt-3"> Other Reviews </h1> <hr />
                         {allUserReviews.filter((user) => user.reviewerId._id !== userId).map((userReview) => (
-                            <div id="sm-sample-post" className="border border-danger">
-                                <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                                    <FaRegCircleUser />
-                                    <span className="d-inline-flex ms-1">
-                                        <p> {userReview.reviewerId.username} <b>posted</b> a review on <b>{userReview.gameId}</b> <span>&#183;</span> {userReview.rating} <FaStar /></p>
-                                    </span> <br />
+                            <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`} className="text-decoration-none text-dark">
+                                <div id="sm-sample-post" className="mb-3">
+                                    <div className="d-flex align-items-start ms-3 me-3 pt-4">
+                                        <FaRegCircleUser size={32} />
+                                        <span className="d-inline-flex ms-1">
+                                            <p> {userReview.reviewerId.username} <b>posted</b> a review on <b>{userReview.apiGameTitle}</b> <span>&#183;</span> {userReview.rating / 2} <FaStar /></p>
+                                        </span> <br />
+                                    </div>
+
+                                    {/* This is what the reviewer writes */}
+                                    <div id="sm-reviewer-text" className="d-flex align-items-start ms-3 me-3"
+                                        style={{
+                                            WebkitLineClamp: 3,
+                                            WebkitBoxOrient: 'vertical',
+                                            overflow: 'hidden',
+                                            display: '-webkit-box'
+                                        }}>
+                                        <p className="text-start p-2">{userReview.text}</p>
+                                    </div>
+                                    <div className="d-flex align-items-center p-2">
+                                        <img src={userReview.apiGameData.thumbnail} alt={userReview.apiGameTitle} style={{ marginBottom: '20px' }} className="img-fluid rounded mx-auto d-block" />
+                                    </div>
+
+                                    {/* When click on read more, go navigate into the review */}
+                                    <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
+                                        className="text-decoration-none text-dark">
+                                        <button id="sm-read-more-button"> Read more... </button>
+                                    </Link>
+
+
                                 </div>
-
-                                {/* This is what the reviewer writes */}
-                                <div id="sm-reviewer-text" className="d-flex align-items-start ms-3 me-3"
-                                    style={{
-                                        WebkitLineClamp: 3,
-                                        WebkitBoxOrient: 'vertical',
-                                        overflow: 'hidden',
-                                        display: '-webkit-box'
-                                    }}>
-                                    <p className="text-start">{userReview.text}</p>
-                                </div>
-
-                                {/* When click on read more, go navigate into the review */}
-                                <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`}
-                                    className="text-decoration-none">
-                                    <button> Read more... </button>
-                                </Link>
-
-
-
-                                {/* Clicking the comment icon will lead you to the post */}
-                                {/* Will have to rework these icon: Add or remove */}
-                                <div className="d-flex bd-highlight mb-3">
-                                    <div className="m-2 p-2 bd-highlight"><FcLike /></div>
-                                    <div className="ms-auto m-2 p-2 bd-highlight"><FaRegBookmark /></div>
-                                </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}
@@ -193,51 +203,39 @@ const HomePage: React.FC = () => {
                 {!isLoggedIn && (
                     // Sample post #1
                     <div>
+                        <h1 className="text-start pt-3"> Other Reviews </h1> <hr />
                         {allUserReviews.filter((user) => user.reviewerId._id !== userId).map((userReview) => (
-                            <div id="sm-sample-post" className="border border-danger">
-                                <div className="d-flex align-items-start ms-3 me-3 pt-4">
-                                    <FaRegCircleUser />
-                                    <span className="d-inline-flex ms-1">
-                                        <p> {userReview.reviewerId.username} <b>posted</b> a review on <b>{userReview.gameId}</b> <span>&#183;</span> {userReview.rating} <FaStar /></p>
-                                    </span> <br />
-                                </div>
-
-                                {/* This is what the reviewer writes */}
-                                <div id="sm-reviewer-text" className="d-flex align-items-start ms-3 me-3"
-                                    style={{
-                                        WebkitLineClamp: 3,
-                                        WebkitBoxOrient: 'vertical',
-                                        overflow: 'hidden',
-                                        display: '-webkit-box'
-                                    }}>
-                                    <p className="text-start">{userReview.text}</p>
-                                </div>
-
-                                {/* When click on read more, go navigate into the review */}
-                                <Link to={`/login`}
-                                    className="text-decoration-none">
-                                    <button> Read more... </button>
-                                </Link>
-
-
-
-                                {/* Clicking the comment icon will lead you to the post */}
-                                {/* Will have to rework these icon: Add or remove */}
-                                <div className="d-flex bd-highlight mb-3">
-                                    <div className="m-2 p-2 bd-highlight">
-                                        <Link to={`/login`}
-                                            className="text-white">
-                                            <FcLike />
-                                        </Link>
+                            <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`} className="text-decoration-none text-dark">
+                                <div id="sm-sample-post" className="mb-3">
+                                    <div className="d-flex align-items-start ms-3 me-3 pt-4">
+                                        <FaRegCircleUser size={32} />
+                                        <span className="d-inline-flex ms-1">
+                                            <p> {userReview.reviewerId.username} <b>posted</b> a review on <b>{userReview.apiGameTitle}</b> <span>&#183;</span> {userReview.rating / 2} <FaStar /></p>
+                                        </span> <br />
                                     </div>
-                                    <div className="ms-auto m-2 p-2 bd-highlight">
-                                        <Link to={`/login`}
-                                            className="text-white">
-                                            <FaRegBookmark />
-                                        </Link>
+
+                                    {/* This is what the reviewer writes */}
+                                    <div id="sm-reviewer-text" className="d-flex align-items-start ms-3 me-3"
+                                        style={{
+                                            WebkitLineClamp: 3,
+                                            WebkitBoxOrient: 'vertical',
+                                            overflow: 'hidden',
+                                            display: '-webkit-box'
+                                        }}>
+                                        <p className="text-start p-2">{userReview.text}</p>
                                     </div>
+                                    <div className="d-flex align-items-center p-2">
+                                        <img src={userReview.apiGameData.thumbnail} alt={userReview.apiGameTitle} style={{ marginBottom: '20px' }} className="img-fluid rounded mx-auto d-block" />
+                                    </div>
+
+                                    {/* When click on read more, go navigate into the review */}
+                                    <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`} className="text-decoration-none text-dark">
+                                        <button id="sm-read-more-button">
+                                            Read more...
+                                        </button>
+                                    </Link>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}

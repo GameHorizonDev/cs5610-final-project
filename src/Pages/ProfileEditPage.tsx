@@ -20,9 +20,6 @@ const ProfileEditPage: React.FC = () => {
 
   const [message, setMessage] = useState<string | null>(null);
 
-  // This only affect the logic of Homepage as I want to know if there is a user logged in or not - Patrick
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const handleUpdate = async () => {
     try {
       // Prepare the payload
@@ -59,8 +56,6 @@ const ProfileEditPage: React.FC = () => {
       const response = await APP_AXIOS.post(`${SERVER_BASE_URL}/logout`);
       if (response.status === 200) {
         console.log(response.data.message);
-        setIsLoggedIn(false);
-        console.log("(Log out) Logged in: ", isLoggedIn);
       } else {
         console.error("Logout failed:", response.data.message);
       }

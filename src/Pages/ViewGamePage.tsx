@@ -17,8 +17,10 @@ export default function ViewGamePage() {
     useEffect(() => {
         const setUserData = async () => {
             const profile = await getCurrProfile();
-            setUserId(profile._id);
-            setRole(profile.role);
+            if (profile) {
+                setUserId(profile._id);
+                setRole(profile.role);
+            }
         }
         setUserData();
     }, [])
@@ -147,7 +149,7 @@ export default function ViewGamePage() {
                         </div>                    </div>
                     <a href={gameData.game_url} className="btn btn-primary mt-4" target="_blank" rel="noopener noreferrer">Play Now</a>
 
-                    {role !== 'admin' && (
+                    {(role && role !== 'admin') && (
                         <>
                             <button
                                 className="btn btn-outline-primary ms-2 mt-2"
