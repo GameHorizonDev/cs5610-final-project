@@ -3,10 +3,25 @@ import { Link, useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaSignInAlt, FaUserPlus, FaUserCircle } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
+import { getCurrUserId } from "../API/user";
+import { useState, useEffect } from "react";
 
 export default function Navigation() {
     const { pathname } = useLocation();
-    const isLoggedIn = false;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const setLoginStatus = async () => {
+            const userId = await getCurrUserId();
+            console.log(userId);
+            if (userId) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+        }
+        setLoginStatus();
+    }, [pathname])
 
     const guestLinks = [
         { label: "Login", path: "/login", icon: FaSignInAlt },
