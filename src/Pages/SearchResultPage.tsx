@@ -75,15 +75,17 @@ export default function SearchResultPage({ limit = -1, header }: { header: Strin
                 <ul className="list-group">
                     {foundGames.map((game, index) => (
                         <Link to={`/view-game/${game.id}`} className="text-decoration-none text-dark" key={index}>
-                            <li className="list-group-item d-flex justify-content-between align-items-center text-center mb-2">
-                                <div>
-                                    <h5 className="mb-1">{game.title}</h5>
-                                    <p className="mb-1">{game.short_description}</p>
-                                    <small className="text-muted">{game.genre} | Released: {game.release_date}</small>
-                                </div>
-                                <div>
-                                    <span className="badge bg-primary rounded-pill me-1">{game.numReviews} reviews</span>
-                                    <span className="badge bg-primary rounded-pill">{game.numFavorites} favorites</span>
+                            <li className="list-group-item">
+                                <div className="row align-items-center">
+                                    <div className="col-md-9 text-start">
+                                        <h5 className="mb-1 game-title">{game.title}</h5>
+                                        <p className="mb-1">{game.short_description}</p>
+                                        <small className="text-muted">{game.genre} | Released: {game.release_date}</small>
+                                    </div>
+                                    <div className="col-md-3 text-end badge-container">
+                                        <span className="badge bg-primary rounded-pill me-1">{game.numReviews} reviews</span>
+                                        <span className="badge bg-primary rounded-pill">{game.numFavorites} favorites</span>
+                                    </div>
                                 </div>
                             </li>
                         </Link>
