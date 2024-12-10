@@ -1,113 +1,173 @@
 /* ProfilePage.css */
+
+/* General Container */
 .profile-page-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  /* Allow wrapping for smaller screens */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Left Section */
+.profile-left {
+  flex: 0 0 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+  /* Ensure usability on smaller screens */
+}
+
+/* Profile Info */
+.profile-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Avatar */
+.avatar {
+  margin-right: 10px;
+}
+
+.avatar img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+/* Username and Email */
+.username {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.email {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+/* Manage Account Link */
+.manage-account-link {
+  display: block;
+  text-align: right;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.manage-account-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Right Section */
+.profile-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 300px;
+  /* Prevent collapse on small screens */
+}
+
+/* Card Styling */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Header */
+.section-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.section-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #ff5722;
+}
+
+/* Account Settings */
+.account-settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+
+/* Medium Screens */
+@media (max-width: 768px) {
+  .profile-page-container {
+    flex-direction: column;
+    /* Stack vertically */
   }
-  
-  .profile-left {
-    flex: 0 0 300px;
-    background-color: #fff;
-    border: 1px solid #ddd; 
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .avatar {
-    margin-right: 10px;
-  }
-  
-  .avatar img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-  }
-  
-  .username {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .email {
-    margin: 5px 0 0;
-    color: #666;
-  }
-  
-  .manage-account-link {
-    display: block;
-    text-align: right; 
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px; 
+
+  .profile-left,
+  .profile-right {
+    max-width: 100%;
+    flex: none;
+    /* Disable flex-grow/shrink for stacking */
   }
 
   .manage-account-container {
-    display: flex; 
-    justify-content: flex-end; 
-    margin-top: 20px; 
+    justify-content: center;
+    /* Center the link on smaller screens */
   }
-  
-  .profile-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+}
+
+/* Small Screens */
+@media (max-width: 480px) {
+  .username {
+    font-size: 16px;
+    /* Adjust font size */
   }
-  
-  .card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .email {
+    font-size: 14px;
   }
-  
 
   .section-header {
-    position: relative; 
-    display: flex;
-    align-items: center; 
-    padding-left: 10px; 
-    margin-bottom: 15px;
-    font-size: 18px; 
-    font-weight: bold;
-    color: #333; 
-    text-transform: uppercase;
-  }
-  
-  /* a vertical red line on the left */
-  .section-header::before {
-    content: ''; 
-    position: absolute; 
-    left: 0; 
-    top: 0;
-    bottom: 0; 
-    display: block;
-    width: 4px; 
-    height: 100%; 
-    background-color: #ff5722; 
-    margin-right: 10px; 
+    font-size: 16px;
+    /* Smaller header font */
   }
 
-  .account-settings-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .manage-account-link {
+    font-size: 14px;
+    /* Smaller link size */
+  }
+
+  .avatar img {
+    width: 60px;
+    /* Smaller avatar */
+    height: 60px;
+  }
 }
-  
-  
