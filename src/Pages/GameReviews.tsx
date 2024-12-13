@@ -56,7 +56,7 @@ const GameReviews: React.FC = () => {
                     {gameData?.reviews && gameData.reviews.length > 0 ? (
                         <ReviewList gameData={gameData} reviews={gameData.reviews}></ReviewList>
                     ) : (
-                        <p>No reviews available for this game.</p>
+                        <div className="alert alert-secondary text-center" role="alert">No reviews available for this game.</div>
                     )}
 
                 </div>

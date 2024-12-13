@@ -10,7 +10,7 @@ function LandingPage() {
             <div className="card shadow-sm mb-4">
                 <div className="card-body">
                     <h2 className="card-title mb-3">About the App</h2>
-                    <p className="card-text">
+                    <p className="card-text text-start">
                         Our application is a <strong>game review website</strong> that allows users to explore, review, and rate their favorite games.
                         Users can discover new games, read community reviews, and share their thoughts on various games.
                         The app aims to foster a community of passionate gamers and provide a platform for meaningful discussions.

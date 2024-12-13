@@ -111,7 +111,7 @@ const HomePage: React.FC = () => {
                         {/* Display the first 3 post made by the users if there is any*/}
                         {userReviews.length !== 0 && (
                             <div>
-                                <h1 className="text-start"> Users Reviews </h1> <hr />
+                                <h1 className="text-start"> My Reviews </h1> <hr />
                                 {userReviews.slice(0, 3).map((userReview) => (
                                     <Link to={`/gamereviews/${userReview.gameId}/review/${userReview._id}`} className="text-decoration-none text-dark">
                                         <div id="sm-users-post" className="mb-3">

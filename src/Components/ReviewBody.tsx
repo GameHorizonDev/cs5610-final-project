@@ -3,6 +3,19 @@
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 
+function formatDateToLocalTimezone(datetimeString: string): string {
+    // Parse the datetime string into a Date object
+    const date = new Date(datetimeString);
+
+    // Adjust to local timezone and extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format as YYYY-mm-dd
+    return `${year}-${month}-${day}`;
+}
+
 export default function ReviewBody({ gameData, review }: any) {
     let type;
     if (review.reviewerId.role === "critic") {
@@ -26,7 +39,7 @@ export default function ReviewBody({ gameData, review }: any) {
                         </div>
                         <div style={{ marginLeft: 'auto' }}>
                             <span style={{ fontSize: '12px', color: 'gray' }}>
-                                {new Date(review.createdAt).toLocaleDateString()}
+                                {formatDateToLocalTimezone(review.createdAt)}
                             </span>
                             <br />
                             <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'gray' }}>
@@ -35,7 +48,7 @@ export default function ReviewBody({ gameData, review }: any) {
                         </div>
 
                     </div>
-                    <p>{review.text}</p>
+                    <p className="text-start">{review.text}</p>
                 </div >
             </div>
         </div>

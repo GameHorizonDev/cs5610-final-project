@@ -16,7 +16,7 @@ interface GameData {
 
 export default function GameSummary({ gameData }: { gameData: GameData }) {
     return (
-        <div>
+        <div className="text-start">
             <Link to={`/view-game/${gameData?.id}`}>
                 <h2>{gameData?.title}</h2>
             </Link>

@@ -127,7 +127,7 @@ export default function ViewGamePage() {
             <h1 className="mb-4">{gameData.title}</h1>
             <div className="card mb-4">
                 <img src={gameData.thumbnail} className="card-img-top" alt={gameData.title} />
-                <div className="card-body">
+                <div className="card-body text-start ">
                     <h5 className="card-title">Game Details</h5>
                     <p><strong>Genre:</strong> {gameData.genre}</p>
                     <p><strong>Platform:</strong> {gameData.platform}</p>
@@ -138,26 +138,26 @@ export default function ViewGamePage() {
                     <p className="card-text">{gameData.short_description}</p>
                     <div className="mt-4">
                         <h5>Average Critic Score:</h5>
-                        <div className="d-flex justify-content-center">
+                        <div className="d-flex justify-content-left">
                             <StarRating rating={avgCriticScore} />
                         </div>
                     </div>
                     <div className="mt-2">
                         <h5>Average Audience Score:</h5>
-                        <div className="d-flex justify-content-center">
+                        <div className="d-flex justify-content-left">
                             <StarRating rating={avgAudienceScore} />
                         </div>                    </div>
-                    <a href={gameData.game_url} className="btn btn-primary mt-4" target="_blank" rel="noopener noreferrer">Play Now</a>
+                    <a href={gameData.game_url} className="btn btn-primary mt-2 me-2" target="_blank" rel="noopener noreferrer">Play Now</a>
 
                     {(role && role !== 'admin') && (
                         <>
                             <button
-                                className="btn btn-outline-primary ms-2 mt-2"
+                                className="btn btn-outline-primary mt-2 me-2 w-auto"
                                 onClick={handleFavorite}
                             >
                                 {isFavorited ? "Favorited" : "Add to Favorites"}
                             </button>
-                            <Link to={`/GameReviews/${gameData.id}/review/new/edit`} className="btn btn-success ms-2 mt-2">
+                            <Link to={`/GameReviews/${gameData.id}/review/new/edit`} className="btn btn-success mt-2 me-2">
                                 Create a Review
                             </Link>
                         </>

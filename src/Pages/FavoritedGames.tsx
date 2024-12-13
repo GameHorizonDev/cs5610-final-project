@@ -70,12 +70,12 @@ export default function FavoritedGames({ userId = "" }: { userId?: String }) {
                                     <Link
                                         to={game.apiData.game_url}
                                         target="_blank"
-                                        className="btn btn-primary mb-2"
+                                        className="btn btn-primary mb-2 me-2"
                                     >
                                         Play Now
                                     </Link>
                                     <button
-                                        className="btn btn-danger"
+                                        className="btn btn-danger w-auto mb-2 me-2"
                                         onClick={() => handleUnfavorite(game.gameId)}
                                     >
                                         Remove from Favorites

@@ -62,11 +62,11 @@ export default function BookmarkedReviews({ userId = "" }: { userId?: String }) 
                                     </span>
                                 </div>
                                 <p>{review.text}</p>
-                                <Link to={`/gamereviews/${review.gameId}/review/${review._id}`} className="text-decoration-none btn btn-primary btn-sm mb-1">
+                                <Link to={`/gamereviews/${review.gameId}/review/${review._id}`} className="text-decoration-none btn btn-primary btn-sm mb-1 me-2">
                                     <strong>View Review</strong>
                                 </Link>
                                 <button
-                                    className="btn btn-danger btn-sm"
+                                    className="btn btn-danger btn-sm w-auto mb-1 me-2"
                                     onClick={() => handleUnbookmark(review._id)}
                                 >
                                     Unbookmark
